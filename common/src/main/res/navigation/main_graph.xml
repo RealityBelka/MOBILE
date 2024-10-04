@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/biometricFragment">
+
+    <fragment
+        android:id="@+id/biometricFragment"
+        android:name="ru.gozerov.presentation.screens.face.BiometricFragment"
+        android:label="BiometricFragment">
+        <action
+            android:id="@+id/action_biometricFragment_to_voiceFragment"
+            app:destination="@id/voiceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/voiceFragment"
+        android:name="ru.gozerov.presentation.screens.voice.VoiceFragment"
+        android:label="VoiceFragment">
+
+        <deepLink app:uri="biometricHack://voice_record" />
+
+    </fragment>
+</navigation>
