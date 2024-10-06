@@ -2,6 +2,8 @@ package ru.gozerov.common.activity
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import ru.gozerov.common.R
@@ -13,7 +15,12 @@ class MainActivity : AppCompatActivity()/*, Navigator*/ {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.light(
+                getColor(R.color.transparent),
+                getColor(R.color.white)
+            )
+        )
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

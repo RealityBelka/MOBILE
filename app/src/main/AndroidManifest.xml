@@ -27,6 +27,7 @@
         android:theme="@style/Theme.BiometricHack"
         tools:targetApi="31"
         android:name=".application.BiometricApplication">
+
         <activity
             android:name="ru.gozerov.common.activity.MainActivity"
             android:exported="true"

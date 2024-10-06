@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,11 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.gozerov.presentation.databinding.FragmentVoiceBinding
 import java.io.IOException
 
@@ -55,6 +61,8 @@ class VoiceFragment: Fragment() {
     private var mediaRecorder: MediaRecorder? = null
     private var audioFilePath: String = ""
 
+    var task: Job? = null
+
     private fun initRecorder() {
         mediaRecorder = MediaRecorder()
         audioFilePath = "${requireActivity().externalCacheDir?.absolutePath}/audio_record.3gp"
@@ -69,8 +77,18 @@ class VoiceFragment: Fragment() {
 
     private fun startRecording() {
         try {
+            initRecorder()
             mediaRecorder?.prepare()
             mediaRecorder?.start()
+            task = CoroutineScope(Dispatchers.IO).launch {
+                while (true) {
+                    binding.root.post{
+                        Log.e("AAA", "repeated")
+                        binding.waveformView.addAmplitude(mediaRecorder?.maxAmplitude?.plus(50f) ?: 0f)
+                    }
+                    delay(100)
+                }
+            }
             Toast.makeText(requireContext(), "Recording started", Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
             e.printStackTrace()
@@ -83,7 +101,9 @@ class VoiceFragment: Fragment() {
             reset()
             release()
         }
+        task?.cancel()
         mediaRecorder = null
+        binding.waveformView.clear()
         Toast.makeText(requireContext(), "Recording saved at $audioFilePath", Toast.LENGTH_SHORT).show()
     }
 

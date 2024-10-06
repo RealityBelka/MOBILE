@@ -1,6 +1,7 @@
 package ru.gozerov.presentation.screens.face
 
 import android.Manifest
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -43,9 +44,6 @@ class BiometricFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         cameraPermissionRequest.launch(Manifest.permission.CAMERA)
 
-        binding.navigateToVoiceButton.setOnClickListener {
-            findNavController().launch(Screen.VoiceRecord)
-        }
     }
 
     override fun onDestroyView() {
@@ -120,13 +118,15 @@ class BiometricFragment : Fragment() {
     private fun showAdvice(face: Face) {
         val smileProb = face.smilingProbability
         val advice = if (smileProb != null && smileProb > 0.5) {
+            binding.faceOval.setBorderColor(Color.GREEN)
             "You're smiling! Keep it up!"
         } else {
+            binding.faceOval.setBorderColor(Color.RED)
             "Try to smile more!"
         }
         binding.root.postDelayed({
             captureImage()
-        }, 1000L)
+        }, 100L)
         Log.e("aaaa", advice)
         // Show advice to the user
     }
