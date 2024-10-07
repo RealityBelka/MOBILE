@@ -31,10 +31,8 @@ class StartPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding.buttonLaunch.setOnClickListener {
-            findNavController().launch(screen = Screen.Biometric)
+            findNavController().launch(screen = Screen.FaceRulesPage)
         }
-
-
 
     }
 

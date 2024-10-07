@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Салам пополам" />
+        android:textColor="#000"
+        android:textSize="24dp"
+        android:text="Здравствуйте!" />
 
     <Button
         android:id="@+id/buttonLaunch"
@@ -19,7 +21,7 @@
         android:layout_marginTop="24dp"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
-        android:text="Перейти некст" />
+        android:text="Перейти дальше" />
 
 
 
