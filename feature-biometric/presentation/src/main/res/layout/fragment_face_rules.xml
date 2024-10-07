@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="16dp"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/rulesHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Шаг 1/2"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/rulesDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:layout_marginTop="48dp"
+        android:text="Правила" />
+
+    <Button
+        android:id="@+id/rulesStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="56dp"
+        android:text="Сделать селфи" />
+</LinearLayout>
