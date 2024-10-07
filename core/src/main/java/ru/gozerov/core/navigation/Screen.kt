@@ -8,5 +8,6 @@ package ru.gozerov.core.navigation
 
 enum class Screen(val route: String) {
     Biometric("biometricHack://biometric"),
-    VoiceRecord("biometricHack://voice_record")
+    VoiceRecord("biometricHack://voice_record"),
+    StartPage("biometricHack://start_page")
 }

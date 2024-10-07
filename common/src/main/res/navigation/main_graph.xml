@@ -2,12 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_graph"
-    app:startDestination="@id/voiceFragment">
+    app:startDestination="@id/startPageFragment">
 
     <fragment
         android:id="@+id/biometricFragment"
         android:name="ru.gozerov.presentation.screens.face.BiometricFragment"
         android:label="BiometricFragment">
+
+        <deepLink app:uri="biometricHack://biometric" />
         <action
             android:id="@+id/action_biometricFragment_to_voiceFragment"
             app:destination="@id/voiceFragment" />
@@ -19,5 +21,12 @@
 
         <deepLink app:uri="biometricHack://voice_record" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/startPageFragment"
+        android:name="ru.gozerov.presentation.screens.start_page.StartPageFragment"
+        android:label="StartPageFragment">
+
+        <deepLink app:uri="biometricHack://start_page" />
     </fragment>
 </navigation>
