@@ -40,8 +40,23 @@
 
         <deepLink app:uri="biometricHack://face_rules" />
         <action
-            android:id="@+id/action_startPageFragment_to_biometricFragment"
+            android:id="@+id/action_faceRulesFragment_to_biometricFragment"
             app:destination="@id/biometricFragment" />
+
+        <action
+            android:id="@+id/action_faceRulesFragment_to_faceRulesListFragment"
+            app:destination="@id/faceRulesListFragment" />
     </fragment>
+
+
+    <fragment
+        android:id="@+id/faceRulesListFragment"
+        android:name="ru.gozerov.presentation.screens.face_rules.FaceRulesListFragment"
+        android:label="FaceRulesListFragment">
+
+        <deepLink app:uri="biometricHack://face_rules_list" />
+
+    </fragment>
+
 
 </navigation>

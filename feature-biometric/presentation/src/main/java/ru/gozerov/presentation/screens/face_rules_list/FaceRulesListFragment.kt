@@ -9,10 +9,11 @@ import androidx.navigation.fragment.findNavController
 import ru.gozerov.core.navigation.Screen
 import ru.gozerov.core.navigation.launch
 import ru.gozerov.presentation.databinding.FragmentFaceRulesBinding
+import ru.gozerov.presentation.databinding.FragmentFaceRulesListBinding
 
-class FaceRulesFragment : Fragment() {
+class FaceRulesListFragment : Fragment() {
 
-    private var _binding: FragmentFaceRulesBinding? = null
+    private var _binding: FragmentFaceRulesListBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -20,7 +21,7 @@ class FaceRulesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFaceRulesBinding.inflate(inflater, container, false)
+        _binding = FragmentFaceRulesListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -30,13 +31,9 @@ class FaceRulesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.rulesStart.setOnClickListener {
-            findNavController().launch(screen = Screen.Biometric)
-        }
 
-        binding.rulesDesc.setOnClickListener {
-            findNavController().launch(screen = Screen.FaceRulesList)
+        binding.facrRulesReturn.setOnClickListener {
+            findNavController().launch(screen = Screen.FaceRulesPage)
         }
-
     }
 }
