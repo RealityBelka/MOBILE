@@ -7,7 +7,7 @@
         android:id="@+id/startExit"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="12dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/close"
@@ -23,7 +23,7 @@
         android:layout_marginTop="120dp"
         android:gravity="center"
         android:text="@string/register_easy_biometry"
-        android:textColor="@color/black"
+        android:textColor="@color/text"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,8 +54,7 @@
         android:src="@drawable/humanstart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textStartFollow"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/textStartFollow" />
 
     <Button
         android:id="@+id/buttonLaunch"

@@ -11,7 +11,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="36dp"
         android:background="@android:color/transparent"
-        android:contentDescription="Close"
+        android:contentDescription="@string/close"
         android:src="@drawable/arrow_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.046"
@@ -22,14 +22,14 @@
         android:id="@+id/textStartBiometric"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginStart="@dimen/_40dp"
         android:gravity="center"
         android:text="Требования к фото"
         android:textColor="#000"
         android:textSize="24sp"
         android:textStyle=""
         app:layout_constraintStart_toEndOf="@+id/faceRulesReturn"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/faceRulesReturn"
+        app:layout_constraintBottom_toBottomOf="@id/faceRulesReturn"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
