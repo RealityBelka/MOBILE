@@ -1,34 +1,98 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:padding="16dp"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageButton
+        android:id="@+id/rulesExit"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="36dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Close"
+        android:src="@drawable/red_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageRulesHuman"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="162dp"
+        android:src="@drawable/human"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        android:id="@+id/rulesHeader"
+        android:id="@+id/textStartBiometric"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/lato_bold"
+        android:gravity="center"
+        android:text="Сделайте селфи"
+        android:textColor="#000"
+        android:textSize="24sp"
+        android:textStyle=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageRulesHuman" />
+
+    <TextView
+        android:id="@+id/textStartFollow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Шаг 1/2"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/lato"
+        android:gravity="center"
+        android:text=" на однотонном, светлом фоне,
+при хорошем освещении"
+        android:textColor="#606569"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStartBiometric" />
 
     <Button
         android:id="@+id/rulesDesc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="211dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:drawableRight="@drawable/arrow_blue"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/lato"
+        android:text="Посмотреть требования"
         android:textAllCaps="false"
-        android:layout_marginTop="48dp"
-        android:text="Правила" />
+        android:textColor="#0066B3"
+        android:textSize="16sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStartFollow" />
+
 
     <Button
         android:id="@+id/rulesStart"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/custom_button_blue"
+        android:fontFamily="@font/lato"
+        android:text="Сделать фото"
         android:textAllCaps="false"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="56dp"
-        android:text="Сделать селфи" />
-</LinearLayout>
+        android:textColor="#fff"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

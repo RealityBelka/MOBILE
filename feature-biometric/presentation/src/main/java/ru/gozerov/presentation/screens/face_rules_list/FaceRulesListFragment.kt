@@ -32,8 +32,8 @@ class FaceRulesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        binding.facrRulesReturn.setOnClickListener {
-            findNavController().launch(screen = Screen.FaceRulesPage)
+        binding.faceRulesReturn.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 }

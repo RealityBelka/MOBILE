@@ -34,6 +34,7 @@ class StartPageFragment : Fragment() {
             findNavController().launch(screen = Screen.FaceRulesPage)
         }
 
+
     }
 
 }

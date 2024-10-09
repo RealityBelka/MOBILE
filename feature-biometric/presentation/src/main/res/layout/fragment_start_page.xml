@@ -1,28 +1,114 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textStartBiometric"
-        android:layout_marginTop="64dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginTop="176dp"
+        android:fontFamily="@font/lato_bold"
         android:gravity="center"
+        android:text="Регистрация упрощённой биометрии"
         android:textColor="#000"
-        android:textSize="24dp"
-        android:text="Здравствуйте!" />
+        android:textSize="24sp"
+        android:textStyle=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textStartFollow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lato"
+        android:gravity="center"
+        android:text="Следуйте инструкциям в приложении"
+        android:textColor="#606569"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStartBiometric" />
+    <ImageView
+            android:id="@+id/imageStartHuman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="48dp"
+            android:src="@drawable/humanstart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textStartFollow" />
+
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageStartHuman"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="48dp"-->
+<!--        android:src="@drawable/human"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textStartFollow" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageStartCamera"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginBottom="32dp"-->
+<!--        android:src="@drawable/camera"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/imageStartHuman"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.088"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageStartSoundwave"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginBottom="72dp"-->
+<!--        android:src="@drawable/soundwave"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/imageStartHuman"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.83"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
 
     <Button
         android:id="@+id/buttonLaunch"
         android:layout_width="match_parent"
-        android:layout_marginTop="24dp"
-        android:layout_height="wrap_content"
+        android:layout_height="68dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/custom_button_blue"
+        android:fontFamily="@font/lato"
+        android:text="Зарегистрировать"
         android:textAllCaps="false"
-        android:text="Перейти дальше" />
+        android:textColor="#fff"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-
-
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/startExit"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="36dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Close"
+        android:src="@drawable/red_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

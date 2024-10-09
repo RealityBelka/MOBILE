@@ -33,7 +33,6 @@ class FaceRulesFragment : Fragment() {
         binding.rulesStart.setOnClickListener {
             findNavController().launch(screen = Screen.Biometric)
         }
-
         binding.rulesDesc.setOnClickListener {
             findNavController().launch(screen = Screen.FaceRulesList)
         }
