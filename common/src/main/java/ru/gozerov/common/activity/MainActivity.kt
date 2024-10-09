@@ -6,8 +6,9 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import ru.gozerov.common.R
+import ru.gozerov.common.R.id.nav_host_fragment
 import ru.gozerov.common.databinding.ActivityMainBinding
+import ru.gozerov.core.R
 
 class MainActivity : AppCompatActivity()/*, Navigator*/ {
 
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity()/*, Navigator*/ {
         setContentView(binding.root)
 
         val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            .findFragmentById(nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
         intent?.let {

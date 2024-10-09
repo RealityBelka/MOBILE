@@ -51,7 +51,7 @@
 
     <fragment
         android:id="@+id/faceRulesListFragment"
-        android:name="ru.gozerov.presentation.screens.face_rules.FaceRulesListFragment"
+        android:name="ru.gozerov.presentation.screens.face_rules_list.FaceRulesListFragment"
         android:label="FaceRulesListFragment">
 
         <deepLink app:uri="biometricHack://face_rules_list" />

@@ -1,6 +1,5 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,13 +7,12 @@
         android:id="@+id/rulesExit"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="12dp"
         android:background="@android:color/transparent"
-        android:contentDescription="Close"
+        android:contentDescription="@string/close"
         android:src="@drawable/red_close"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -22,39 +20,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="162dp"
-        android:src="@drawable/human"
+        android:contentDescription="@string/man"
+        android:src="@drawable/human_scan"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/rulesExit"
+        app:layout_constraintVertical_bias="0.2" />
 
     <TextView
         android:id="@+id/textStartBiometric"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="48dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/lato_bold"
-        android:gravity="center"
-        android:text="Сделайте селфи"
-        android:textColor="#000"
+        android:layout_marginTop="28dp"
+        android:text="@string/make_selfie"
+        android:textColor="@color/text"
         android:textSize="24sp"
-        android:textStyle=""
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageRulesHuman" />
 
     <TextView
         android:id="@+id/textStartFollow"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="80dp"
         android:layout_marginTop="4dp"
-        android:fontFamily="@font/lato"
         android:gravity="center"
-        android:text=" на однотонном, светлом фоне,
-при хорошем освещении"
-        android:textColor="#606569"
+        android:letterSpacing="0.03125"
+        android:text="@string/text_rules"
+        android:textColor="@color/text_secondary"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,20 +57,18 @@
 
     <Button
         android:id="@+id/rulesDesc"
-        android:layout_width="211dp"
+        android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         android:drawableRight="@drawable/arrow_blue"
         android:drawablePadding="10dp"
-        android:fontFamily="@font/lato"
-        android:text="Посмотреть требования"
+        android:gravity="center_vertical"
+        android:text="@string/see_requirements"
         android:textAllCaps="false"
-        android:textColor="#0066B3"
+        android:textColor="@color/primary"
         android:textSize="16sp"
-
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textStartFollow" />
 
@@ -85,14 +78,14 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/custom_button_blue"
-        android:fontFamily="@font/lato"
-        android:text="Сделать фото"
+        android:text="@string/take_photo"
         android:textAllCaps="false"
-        android:textColor="#fff"
-        android:textSize="22sp"
+        android:textColor="@color/background"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

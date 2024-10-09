@@ -1,4 +1,4 @@
-package ru.gozerov.presentation.screens.face_rules
+package ru.gozerov.presentation.screens.face_rules_list
 
 import android.os.Bundle
 import android.view.LayoutInflater

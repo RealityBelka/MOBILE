@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="register_easy_biometry">Регистрация упрощённой биометрии</string>
+    <string name="close">Close</string>
+    <string name="follow_instructions">Следуйте инструкциям в приложении</string>
+    <string name="man">man</string>
+    <string name="register">Зарегистрировать</string>
+    <string name="make_selfie">Сделайте селфи</string>
+    <string name="text_rules">на однотонном, светлом фоне,\n при хорошем освещении</string>
+    <string name="see_requirements">Посмотреть требования</string>
+    <string name="take_photo">Сделать фото</string>
+</resources>
