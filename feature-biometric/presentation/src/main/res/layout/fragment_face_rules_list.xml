@@ -28,8 +28,17 @@
         android:textColor="#000"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/faceRulesReturn"
         app:layout_constraintStart_toEndOf="@+id/faceRulesReturn"
-        app:layout_constraintTop_toTopOf="@id/faceRulesReturn"
-        app:layout_constraintBottom_toBottomOf="@id/faceRulesReturn"/>
+        app:layout_constraintTop_toTopOf="@id/faceRulesReturn" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/faceRulesList"
+        android:layout_width="391dp"
+        android:layout_height="751dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/voiceStartTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
