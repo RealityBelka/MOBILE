@@ -9,4 +9,6 @@
     <string name="text_rules">на однотонном, светлом фоне,\n при хорошем освещении</string>
     <string name="see_requirements">Посмотреть требования</string>
     <string name="take_photo">Сделать фото</string>
+    <string name="voice_recording">Запись голоса</string>
+    <string name="start_recording">Начать запись</string>
 </resources>

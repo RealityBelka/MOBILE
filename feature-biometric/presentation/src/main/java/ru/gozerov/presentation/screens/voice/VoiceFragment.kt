@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,7 @@ import kotlinx.coroutines.launch
 import ru.gozerov.presentation.databinding.FragmentVoiceBinding
 import java.io.IOException
 
-class VoiceFragment: Fragment() {
+class VoiceFragment : Fragment() {
 
     private var _binding: FragmentVoiceBinding? = null
     private val binding: FragmentVoiceBinding get() = _binding!!
@@ -36,23 +35,27 @@ class VoiceFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requestPermissions()
-        binding.startRecordingButton.setOnClickListener {
-            startRecording()
-        }
-
-        binding.stopRecordingButton.setOnClickListener {
-            stopRecording()
-        }
+        startRecording()
     }
 
 
     private fun requestPermissions() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.RECORD_AUDIO
+            ) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
 
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                arrayOf(
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
                 1
             )
         }
@@ -82,11 +85,17 @@ class VoiceFragment: Fragment() {
             mediaRecorder?.start()
             task = CoroutineScope(Dispatchers.IO).launch {
                 while (true) {
-                    binding.root.post{
-                        Log.e("AAA", "repeated")
-                        binding.waveformView.addAmplitude(mediaRecorder?.maxAmplitude?.plus(50f) ?: 0f)
+                    _binding?.let {
+                        binding.root.post {
+
+                            _binding?.let {
+                                binding.waveformView.addAmplitude(
+                                    mediaRecorder?.maxAmplitude?.plus(50f) ?: 0f
+                                )
+                            }
+                        }
+                        delay(100)
                     }
-                    delay(100)
                 }
             }
             Toast.makeText(requireContext(), "Recording started", Toast.LENGTH_SHORT).show()
@@ -103,14 +112,17 @@ class VoiceFragment: Fragment() {
         }
         task?.cancel()
         mediaRecorder = null
-        binding.waveformView.clear()
-        Toast.makeText(requireContext(), "Recording saved at $audioFilePath", Toast.LENGTH_SHORT).show()
+        _binding?.let {
+            binding.waveformView.clear()
+            Toast.makeText(requireContext(), "Recording saved at $audioFilePath", Toast.LENGTH_SHORT)
+                .show()
+        }
     }
-
 
 
     override fun onDestroyView() {
         _binding = null
+        stopRecording()
         super.onDestroyView()
     }
 

@@ -7,10 +7,13 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
+import ru.gozerov.core.R
 
 class WaveformView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
-    private var paint = Paint()
+    private var paint = Paint().apply {
+        color = getContext().getColor(R.color.primary)
+    }
     private var amplitudes = ArrayList<Float>()
     private var spikes = ArrayList<RectF>()
 
@@ -24,7 +27,6 @@ class WaveformView(context: Context?, attrs: AttributeSet?) : View(context, attr
     private var maxSpikes = 0
 
     init {
-        paint.color = Color.rgb(244, 81, 30)
 
         sw = resources.displayMetrics.widthPixels.toFloat()
 
