@@ -59,4 +59,11 @@
     </fragment>
 
 
+    <fragment
+        android:id="@+id/takeVoiceStartFragment"
+        android:name="ru.gozerov.presentation.screens.take_voice_start.TakeVoiceStartFragment"
+        android:label="TakeVoiceStart">
+        <deepLink app:uri="biometricHack://take_voice_start" />
+    </fragment>
+
 </navigation>

@@ -1,4 +1,4 @@
-package ru.gozerov.presentation.screens.face_rules
+package ru.gozerov.presentation.screens.take_voice_start
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.gozerov.core.navigation.Screen
 import ru.gozerov.core.navigation.launch
-import ru.gozerov.presentation.databinding.FragmentFaceRulesBinding
+import ru.gozerov.presentation.databinding.FragmentTakeVoiceStartBinding
 
-class FaceRulesFragment : Fragment() {
+class TakeVoiceStartFragment : Fragment() {
 
-    private var _binding: FragmentFaceRulesBinding? = null
+    private var _binding: FragmentTakeVoiceStartBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -20,7 +20,7 @@ class FaceRulesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFaceRulesBinding.inflate(inflater, container, false)
+        _binding = FragmentTakeVoiceStartBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -30,15 +30,6 @@ class FaceRulesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.rulesStart.setOnClickListener {
-            findNavController().launch(screen = Screen.Biometric)
-        }
-//        binding.rulesStart.setOnClickListener {
-//            findNavController().launch(screen = Screen.VoiceStart)
-//        }
-        binding.rulesDesc.setOnClickListener {
-            findNavController().launch(screen = Screen.FaceRulesList)
-        }
 
     }
 }

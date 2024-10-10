@@ -9,4 +9,9 @@
     <string name="text_rules">на однотонном, светлом фоне,\n при хорошем освещении</string>
     <string name="see_requirements">Посмотреть требования</string>
     <string name="take_photo">Сделать фото</string>
+    <string name="three_records">Три записи голоса</string>
+    <string name="voices_rules">тихое помещение без эха,\n четкое произношение цифр</string>
+    <string name="skip">Пропустить</string>
+    <string name="record_voice">Записать голос</string>
+    <string name="photo_requirements">Требования к фото</string>
 </resources>

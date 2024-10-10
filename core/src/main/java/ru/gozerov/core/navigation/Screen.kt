@@ -12,4 +12,5 @@ enum class Screen(val route: String) {
     StartPage("biometricHack://start_page"),
     FaceRulesPage("biometricHack://face_rules"),
     FaceRulesList("biometricHack://face_rules_list"),
+    VoiceStart("biometricHack://take_voice_start"),
 }
