@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.safe.args)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -61,5 +63,9 @@ dependencies {
     implementation(libs.mlkit)
     implementation(libs.mlkit.vision)
     implementation(libs.play.services.mlkit.face.detection)
+
+    //Dagger2
+    implementation(libs.dagger)
+    ksp(libs.dagger.compiler)
 
 }

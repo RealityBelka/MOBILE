@@ -19,7 +19,14 @@
         android:name="ru.gozerov.presentation.screens.voice.VoiceFragment"
         android:label="VoiceFragment">
 
-        <deepLink app:uri="biometricHack://voice_record" />
+        <deepLink app:uri="biometricHack://voice_record/{step}/{fail}" />
+        <argument
+            android:name="step"
+            app:argType="integer" />
+        <argument
+            android:name="fail"
+            app:argType="string"
+            app:nullable="true" />
 
     </fragment>
     <fragment

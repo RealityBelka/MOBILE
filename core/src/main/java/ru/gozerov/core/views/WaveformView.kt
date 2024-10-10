@@ -17,12 +17,12 @@ class WaveformView(context: Context?, attrs: AttributeSet?) : View(context, attr
     private var amplitudes = ArrayList<Float>()
     private var spikes = ArrayList<RectF>()
 
-    private var radius = 6f
-    private var w = 9f
-    private var d = 6f
+    private var radius = 10f
+    private var w = 22f
+    private var d = 20f
 
     private var sw = 0f
-    private var sh = 400f
+    private var sh = 200f
 
     private var maxSpikes = 0
 
@@ -34,7 +34,7 @@ class WaveformView(context: Context?, attrs: AttributeSet?) : View(context, attr
     }
 
     fun addAmplitude(amp: Float) {
-        val norm = (amp.toInt() / 7).coerceAtMost(400).toFloat()
+        val norm = (amp.toInt() / 20).coerceIn(25..200).toFloat()
         amplitudes.add(norm)
 
         spikes.clear()

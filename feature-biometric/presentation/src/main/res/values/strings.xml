@@ -16,4 +16,9 @@
     <string name="skip">Пропустить</string>
     <string name="record_voice">Записать голос</string>
     <string name="photo_requirements">Требования к фото</string>
+    <string name="recording_is">Запись %1$d</string>
+    <string name="default_voice_hint">Произносите цифры четко без пауз</string>
+    <string name="stop_recording">Остановить запись</string>
+    <string name="retry">Перезаписать</string>
+    <string name="_continue">Продолжить</string>
 </resources>

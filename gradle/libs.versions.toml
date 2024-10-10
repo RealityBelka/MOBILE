@@ -16,7 +16,7 @@ dagger = "2.51.1"
 room = "2.6.1"
 ksp = "1.9.22-1.0.18"
 lifecycle-ktx = "2.7.0"
-navigation = "2.7.7"
+navigation = "2.8.1"
 retrofit2 = "2.9.0"
 okhttp3 = "4.10.0"
 moshi = "1.15.1"
@@ -66,5 +66,6 @@ play-services-mlkit-face-detection = { group = "com.google.android.gms", name = 
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+safe-args = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

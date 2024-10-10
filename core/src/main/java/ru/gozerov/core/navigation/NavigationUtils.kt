@@ -1,6 +1,8 @@
 package ru.gozerov.core.navigation
 
 import android.net.Uri
+import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 
@@ -20,6 +22,9 @@ val Fragment.navigator get() = (requireActivity() as Navigator)
  *
  * */
 
-fun NavController.launch(screen: Screen) {
-    navigate(Uri.parse(screen.route))
+fun NavController.launch(screen: Screen, vararg args: Any?) {
+    var stringArgs = args.joinToString(separator = "/")
+    if (stringArgs.isNotEmpty()) stringArgs = "/$stringArgs"
+
+    navigate(Uri.parse("${screen.route}$stringArgs"))
 }
