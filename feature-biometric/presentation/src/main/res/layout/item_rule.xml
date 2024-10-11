@@ -11,7 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Лицо смотрит в камеру"
-        android:textColor="#000"
+        android:textColor="@color/text"
+        android:layout_marginHorizontal="16dp"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:letterSpacing="0.03125"
+        android:layout_marginHorizontal="16dp"
         android:text="Фото соответствует возрасту. Лицо открыто,\nвзгляд направлен в объектив камеры.\nВыражение - нейтральное"
         android:textColor="@color/text_secondary"
         android:textSize="16sp"
@@ -39,13 +41,15 @@
 
     <ImageView
         android:id="@+id/imageCorrect"
-        android:layout_width="176dp"
+        android:layout_width="0dp"
         android:layout_height="176dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/img_corners"
         android:clipToOutline="true"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
         android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/desc"
         app:layout_constraintEnd_toStartOf="@id/center_horizontal"
         app:srcCompat="@drawable/view_front" />
@@ -53,14 +57,16 @@
 
     <ImageView
         android:id="@+id/imageIncorrect"
-        android:layout_width="176dp"
+        android:layout_width="0dp"
         android:layout_height="176dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/img_corners"
         android:clipToOutline="true"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toEndOf="@id/center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/desc"
         app:srcCompat="@drawable/closed_face" />
 
@@ -69,14 +75,14 @@
         android:layout_width="176dp"
         android:layout_height="wrap_content"
         android:text="взгляд прямо"
-        android:textColor="#000"
+        android:textColor="@color/text"
         android:textSize="16sp"
         android:textStyle="normal"
         android:drawablePadding="4dp"
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/check_mark"
         android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@id/center_horizontal"
+        app:layout_constraintStart_toStartOf="@id/imageCorrect"
         app:layout_constraintTop_toBottomOf="@+id/imageCorrect" />
 
     <TextView
@@ -84,14 +90,13 @@
         android:layout_width="176dp"
         android:layout_height="wrap_content"
         android:text="часть лица закрыта"
-        android:textColor="#000"
+        android:textColor="@color/text"
         android:textSize="16sp"
         android:textStyle="normal"
         android:drawablePadding="4dp"
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/check_mark_incorrect"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@id/center_horizontal"
+        app:layout_constraintStart_toStartOf="@id/imageIncorrect"
         app:layout_constraintTop_toBottomOf="@+id/imageCorrect" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

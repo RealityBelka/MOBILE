@@ -34,7 +34,7 @@ class FaceRulesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        adapter = FaceRulesAdapter(requireContext())
+        adapter = FaceRulesAdapter()
         val layoutManager = LinearLayoutManager(requireContext())
         binding.faceRulesList.layoutManager = layoutManager
         binding.faceRulesList.adapter = adapter

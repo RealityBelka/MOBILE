@@ -1,13 +1,12 @@
-package ru.gozerov.presentation.adapters
+package ru.gozerov.presentation.screens.face_rules_list
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.gozerov.domain.models.ListRuleItem
-import ru.gozerov.presentation.databinding.RuleItemBinding
+import ru.gozerov.presentation.databinding.ItemRuleBinding
 
-class FaceRulesAdapter() :
+class FaceRulesAdapter :
     RecyclerView.Adapter<FaceRulesAdapter.ViewHolder>() {
 
     var items: List<ListRuleItem> = listOf()
@@ -17,7 +16,7 @@ class FaceRulesAdapter() :
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = RuleItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemRuleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -27,8 +26,10 @@ class FaceRulesAdapter() :
 
     override fun getItemCount(): Int = items.size
 
-    class ViewHolder(private val binding: RuleItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemRuleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ListRuleItem) {
+            val context = binding.root.context
+
             binding.header.text = item.header
             binding.desc.text = item.desc
             binding.descCorrect.text = item.descCorrect
