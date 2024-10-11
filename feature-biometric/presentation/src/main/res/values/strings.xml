@@ -23,4 +23,9 @@
     <string name="_continue">Продолжить</string>
     <string name="done">Готово!</string>
     <string name="try_one_more">Попробовать еще раз</string>
+    <string name="photo_captured">Фото сделано</string>
+    <string name="captured_image">Captured Image</string>
+    <string name="send">Отправить</string>
+    <string name="you_could_take_photo">Можете смело делать фото</string>
+    <string name="check_photo_quality">Проверьте качество фото</string>
 </resources>

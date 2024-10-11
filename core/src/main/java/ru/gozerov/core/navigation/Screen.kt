@@ -7,7 +7,8 @@ package ru.gozerov.core.navigation
  * */
 
 enum class Screen(val route: String) {
-    Biometric("biometricHack://biometric"),
+    FaceCapturing("biometricHack://face_capturing"),
+    PhotoCheck("biometricHack://photo_check"),
     VoiceRecord("biometricHack://voice_record"),
     StartPage("biometricHack://start_page"),
     FaceRulesPage("biometricHack://face_rules"),

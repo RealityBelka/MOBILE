@@ -1,7 +1,7 @@
-package ru.gozerov.data.repository
+package ru.gozerov.data.repositories
 
 import ru.gozerov.domain.models.ListRuleItem
-import ru.gozerov.domain.repository.RuleRepository
+import ru.gozerov.domain.repositories.RuleRepository
 
 class RuleRepositoryImpl : RuleRepository {
     override fun getList() : List<ListRuleItem> {

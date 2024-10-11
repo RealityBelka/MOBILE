@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.gozerov.data.repository.RuleRepositoryImpl
+import ru.gozerov.data.repositories.RuleRepositoryImpl
 import ru.gozerov.presentation.databinding.FragmentFaceRulesListBinding
 
 class FaceRulesListFragment : Fragment() {

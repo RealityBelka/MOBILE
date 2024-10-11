@@ -1,4 +1,4 @@
-package ru.gozerov.domain.repository
+package ru.gozerov.domain.repositories
 
 import ru.gozerov.domain.models.ListRuleItem
 

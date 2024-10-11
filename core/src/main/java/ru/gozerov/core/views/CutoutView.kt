@@ -9,13 +9,14 @@ import android.graphics.PorterDuffXfermode
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
+import ru.gozerov.core.R
 
 class CutoutView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     private val paint = Paint().apply {
-        color = Color.BLACK
+        color = Color.TRANSPARENT
         style = Paint.Style.FILL
     }
 
@@ -24,7 +25,7 @@ class CutoutView @JvmOverloads constructor(
     }
 
     private val borderPaint = Paint().apply {
-        color = Color.GREEN
+        color = context.getColor(R.color.disable)
         style = Paint.Style.STROKE
         strokeWidth = 4f * resources.displayMetrics.density
         isAntiAlias = true

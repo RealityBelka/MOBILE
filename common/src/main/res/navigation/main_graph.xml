@@ -5,14 +5,12 @@
     app:startDestination="@id/startPageFragment">
 
     <fragment
-        android:id="@+id/biometricFragment"
-        android:name="ru.gozerov.presentation.screens.face.BiometricFragment"
-        android:label="BiometricFragment">
+        android:id="@+id/face_capturing"
+        android:name="ru.gozerov.presentation.screens.face_capturing.FaceCapturingFragment"
+        android:label="FaceCapturing">
 
-        <deepLink app:uri="biometricHack://biometric" />
-        <action
-            android:id="@+id/action_biometricFragment_to_voiceFragment"
-            app:destination="@id/voiceFragment" />
+        <deepLink app:uri="biometricHack://face_capturing" />
+
     </fragment>
     <fragment
         android:id="@+id/voiceFragment"
@@ -46,9 +44,6 @@
         android:label="FaceRulesFragment">
 
         <deepLink app:uri="biometricHack://face_rules" />
-        <action
-            android:id="@+id/action_faceRulesFragment_to_biometricFragment"
-            app:destination="@id/biometricFragment" />
 
         <action
             android:id="@+id/action_faceRulesFragment_to_faceRulesListFragment"
@@ -77,6 +72,12 @@
         android:name="ru.gozerov.presentation.screens.recording_list.RecordingListFragment"
         android:label="RecordingListFragment">
         <deepLink app:uri="biometricHack://recording_list" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoCheckFragment"
+        android:name="ru.gozerov.presentation.screens.photo_check.PhotoCheckFragment"
+        android:label="PhotoCheckFragment">
+        <deepLink app:uri="biometricHack://photo_check" />
     </fragment>
 
 </navigation>

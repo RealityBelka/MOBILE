@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.gozerov.presentation"
+    namespace = "ru.gozerov.api"
     compileSdk = 34
 
     defaultConfig {
@@ -31,17 +31,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
 
     implementation(project(":core"))
-    implementation(project(":feature-biometric:domain"))
     implementation(project(":feature-biometric:data"))
+    implementation(project(":feature-biometric:domain"))
+    implementation(project(":feature-biometric:presentation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -49,21 +46,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    //Navigation
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-
-    //CameraX
-    implementation(libs.camera.core)
-    implementation(libs.camera.camera2)
-    implementation(libs.camera.lifecycle)
-    implementation(libs.camera.view)
-
-    //ML Kit
-    implementation(libs.mlkit)
-    implementation(libs.mlkit.vision)
-    implementation(libs.play.services.mlkit.face.detection)
 
     //Dagger2
     implementation(libs.dagger)

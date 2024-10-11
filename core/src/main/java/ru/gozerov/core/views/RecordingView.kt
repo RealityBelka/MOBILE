@@ -2,14 +2,14 @@ package ru.gozerov.core.views
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.withStyledAttributes
 import ru.gozerov.core.R
 
-class RecordingView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
+class RecordingView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     private var paint = Paint().apply {
         color = getContext().getColor(R.color.primary)
@@ -31,6 +31,12 @@ class RecordingView(context: Context?, attrs: AttributeSet?) : View(context, att
         sw = resources.displayMetrics.widthPixels.toFloat()
 
         maxSpikes = (sw / (w + d)).toInt()
+
+        context.withStyledAttributes(attrs, R.styleable.RecordingView) {
+            paint.color =
+                getColor(R.styleable.RecordingView_android_color, context.getColor(R.color.primary))
+        }
+
     }
 
     fun addAmplitude(amp: Float) {
@@ -65,5 +71,6 @@ class RecordingView(context: Context?, attrs: AttributeSet?) : View(context, att
             canvas.drawRoundRect(it, radius, radius, paint)
         }
     }
+
 
 }

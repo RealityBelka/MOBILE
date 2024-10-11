@@ -3,21 +3,26 @@ package ru.gozerov.presentation.screens.recording_list
 import android.media.MediaCodec
 import android.media.MediaExtractor
 import android.media.MediaFormat
-import android.util.Log
+import android.media.MediaPlayer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.ItemRecordingBinding
+import java.io.IOException
 import java.nio.ByteBuffer
 import kotlin.math.absoluteValue
 
-class RecordingListAdapter : RecyclerView.Adapter<RecordingListAdapter.ViewHolder>() {
+class RecordingListAdapter(
+    private val onTryClick: (step: Int, fail: String?) -> Unit
+) : RecyclerView.Adapter<RecordingListAdapter.ViewHolder>() {
 
     var data: List<Recording> = emptyList()
         set(value) {
@@ -25,9 +30,20 @@ class RecordingListAdapter : RecyclerView.Adapter<RecordingListAdapter.ViewHolde
             notifyDataSetChanged()
         }
 
-    class ViewHolder(val binding: ItemRecordingBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ItemRecordingBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: Recording) {
+        private val backAmplitudes = mutableListOf<Float>()
+        private val frontAmplitudes = mutableListOf<Float>()
+        private var isPlaying: Boolean = false
+        private var mediaPlayer: MediaPlayer? = null
+        private var playingJob: Job? = null
+        private var duration = 0
+
+        private val coroutineScope = CoroutineScope(Dispatchers.IO)
+
+
+        fun bind(data: Recording, onTryClick: (step: Int, fail: String?) -> Unit) {
             with(binding) {
                 val context = root.context
 
@@ -38,6 +54,8 @@ class RecordingListAdapter : RecyclerView.Adapter<RecordingListAdapter.ViewHolde
                     )
                 )
 
+                txtTryOneMoreTime.setOnClickListener { onTryClick(data.step, data.fail) }
+
                 txtCurrentRecording.text = context.getString(R.string.recording_is, data.step)
 
                 txtHint.text =
@@ -47,15 +65,22 @@ class RecordingListAdapter : RecyclerView.Adapter<RecordingListAdapter.ViewHolde
                 imgPlay.setImageDrawable(
                     ContextCompat.getDrawable(
                         context,
-                        if (data.isPlaying) R.drawable.ic_pause else R.drawable.ic_play
+                        if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play
                     )
                 )
                 binding.backRecording.visibility = View.INVISIBLE
 
-                val audioFilePath = "${context.externalCacheDir?.absolutePath}/record_3.aac"
+                val audioFilePath =
+                    "${context.externalCacheDir?.absolutePath}/record_${data.step}.aac"
 
-                // Process audio file asynchronously to avoid blocking UI
-                GlobalScope.launch(Dispatchers.IO) {
+                binding.imgPlay.setOnClickListener {
+                    if (!isPlaying)
+                        playAudio(audioFilePath, binding)
+                    else
+                        stopAudio(binding)
+                }
+
+                coroutineScope.launch(Dispatchers.IO) {
                     processAudioFile(audioFilePath, binding)
                 }
             }
@@ -86,10 +111,22 @@ class RecordingListAdapter : RecyclerView.Adapter<RecordingListAdapter.ViewHolde
                             val sampleSize = extractor.readSampleData(inputBuffer!!, 0)
 
                             if (sampleSize > 0) {
-                                codec.queueInputBuffer(inputIndex, 0, sampleSize, extractor.sampleTime, 0)
+                                codec.queueInputBuffer(
+                                    inputIndex,
+                                    0,
+                                    sampleSize,
+                                    extractor.sampleTime,
+                                    0
+                                )
                                 extractor.advance()
                             } else {
-                                codec.queueInputBuffer(inputIndex, 0, 0, 0, MediaCodec.BUFFER_FLAG_END_OF_STREAM)
+                                codec.queueInputBuffer(
+                                    inputIndex,
+                                    0,
+                                    0,
+                                    0,
+                                    MediaCodec.BUFFER_FLAG_END_OF_STREAM
+                                )
                                 isEOS = true
                                 binding.root.post {
                                     binding.backRecording.visibility = View.VISIBLE
@@ -124,11 +161,104 @@ class RecordingListAdapter : RecyclerView.Adapter<RecordingListAdapter.ViewHolde
 
             val amplitude = buffer.short.toFloat().absoluteValue
             amplitudes.add(amplitude)
+            backAmplitudes.add(amplitude)
 
             binding.root.post {
                 binding.backRecording.addAmplitude(amplitude)
             }
 
+        }
+
+        private fun playAudio(filePath: String, binding: ItemRecordingBinding) {
+            if (frontAmplitudes.size == backAmplitudes.size) {
+                frontAmplitudes.clear()
+                binding.frontRecording.clear()
+            }
+            binding.imgPlay.setImageDrawable(
+                ContextCompat.getDrawable(
+                    binding.root.context,
+                    R.drawable.ic_pause
+                )
+            )
+            isPlaying = true
+            try {
+                if (mediaPlayer == null) {
+                    mediaPlayer = MediaPlayer().apply {
+                        setDataSource(filePath)
+                        prepare()
+                        start()
+                    }
+
+                    this@ViewHolder.duration = mediaPlayer?.duration ?: 10
+
+                    playingJob = coroutineScope.launch {
+                        backAmplitudes.forEach { amplitude ->
+                            binding?.let {
+                                binding.root.post {
+                                    binding?.let {
+                                        frontAmplitudes.add(amplitude)
+                                        binding.frontRecording.addAmplitude(amplitude)
+                                    }
+                                }
+                                delay(duration / backAmplitudes.size.toLong())
+                            }
+                        }
+
+                        stopAudio(binding)
+                        releaseMediaPlayer()
+                    }
+
+
+                } else {
+                    mediaPlayer?.start()
+                    playingJob = coroutineScope.launch {
+                        for (i in frontAmplitudes.size..<backAmplitudes.size) {
+                            val amplitude = backAmplitudes[i]
+                            binding?.let {
+                                binding.root.post {
+                                    binding?.let {
+                                        frontAmplitudes.add(amplitude)
+                                        binding.frontRecording.addAmplitude(amplitude)
+                                    }
+                                }
+                                delay(duration / backAmplitudes.size.toLong())
+                            }
+                        }
+
+                        stopAudio(binding)
+                        releaseMediaPlayer()
+                    }
+                }
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+
+        private fun stopAudio(binding: ItemRecordingBinding) {
+            binding.imgPlay.setImageDrawable(
+                ContextCompat.getDrawable(
+                    binding.root.context,
+                    R.drawable.ic_play
+                )
+            )
+            playingJob?.cancel()
+            mediaPlayer?.let {
+                try {
+                    if (it.isPlaying) {
+                        it.stop()
+                    }
+                } catch (e: IllegalStateException) {
+                    e.printStackTrace()
+                }
+            }
+            isPlaying = false
+        }
+
+        private fun releaseMediaPlayer() {
+            mediaPlayer?.release()
+            mediaPlayer = null
+            isPlaying = false
         }
 
     }
@@ -141,6 +271,7 @@ class RecordingListAdapter : RecyclerView.Adapter<RecordingListAdapter.ViewHolde
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position], onTryClick)
     }
+
 }

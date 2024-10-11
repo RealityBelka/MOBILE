@@ -15,13 +15,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.gozerov.core.di.biometricComponentHolder
+import ru.gozerov.core.navigation.Screen
+import ru.gozerov.core.navigation.launch
 import ru.gozerov.core.recycler.smoothScrollToPositionWithCustomSpeed
 import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.FragmentVoiceBinding
-import ru.gozerov.presentation.di.DaggerBiometricComponent
 import ru.gozerov.presentation.screens.voice.models.VoiceAction
 import ru.gozerov.presentation.screens.voice.models.VoiceEvent
 import java.io.IOException
@@ -46,8 +49,7 @@ class VoiceFragment : Fragment() {
     private var waveformJob: Job? = null
 
     override fun onAttach(context: Context) {
-        val component = DaggerBiometricComponent.factory()
-            .create(lifecycle)
+        val component = context.biometricComponentHolder
         component.inject(this)
 
         super.onAttach(context)
@@ -102,7 +104,7 @@ class VoiceFragment : Fragment() {
                         }
 
                         binding.sendRecording.setOnClickListener {
-
+                            findNavController().launch(Screen.RecordingList)
                         }
                     }
                 }

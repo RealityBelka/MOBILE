@@ -42,6 +42,8 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":common"))
+    implementation(project(":feature-biometric:api"))
+    implementation(project(":feature-biometric:presentation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
