@@ -70,13 +70,13 @@ class VoiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requestPermissions()
 
-
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 launch {
                     viewModel.viewStates().collect { viewState ->
                         binding.txtCurrentStep.text = getString(R.string.recording_is, viewState.step)
                         binding.txtHint.text = viewState.fail ?: getString(R.string.default_voice_hint)
+                        binding.imgHint.visibility = if (viewState.fail != null) View.VISIBLE else View.GONE
                         numberAdapter.data = viewState.numbers
 
                         binding.captureVoice.setOnClickListener {
@@ -177,12 +177,12 @@ class VoiceFragment : Fragment() {
 
     private fun initRecorder(step: Int) {
         mediaRecorder = MediaRecorder()
-        audioFilePath = "${requireActivity().externalCacheDir?.absolutePath}/record_$step.3gp"
+        audioFilePath = "${requireActivity().externalCacheDir?.absolutePath}/record_$step.aac"
 
         mediaRecorder?.apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
-            setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-            setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+            setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS)
+            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
             setOutputFile(audioFilePath)
         }
     }

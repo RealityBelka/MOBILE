@@ -21,4 +21,6 @@
     <string name="stop_recording">Остановить запись</string>
     <string name="retry">Перезаписать</string>
     <string name="_continue">Продолжить</string>
+    <string name="done">Готово!</string>
+    <string name="try_one_more">Попробовать еще раз</string>
 </resources>

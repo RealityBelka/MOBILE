@@ -72,5 +72,11 @@
         android:label="TakeVoiceStart">
         <deepLink app:uri="biometricHack://take_voice_start" />
     </fragment>
+    <fragment
+        android:id="@+id/recordingListFragment"
+        android:name="ru.gozerov.presentation.screens.recording_list.RecordingListFragment"
+        android:label="RecordingListFragment">
+        <deepLink app:uri="biometricHack://recording_list" />
+    </fragment>
 
 </navigation>

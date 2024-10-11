@@ -31,18 +31,34 @@
         app:layout_constraintTop_toBottomOf="@id/exitButton"
         tools:text="Шаг 1" />
 
-    <TextView
-        android:id="@+id/txtHint"
+    <ImageView
+        android:id="@+id/imgHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:src="@drawable/ic_alert"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/default_voice_hint"
+        app:layout_constraintTop_toTopOf="@id/txtHint"
+        app:layout_constraintBottom_toBottomOf="@id/txtHint"
+        android:visibility="gone" />
+    
+    <TextView
+        android:id="@+id/txtHint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
         android:letterSpacing="0.03125"
+        android:lineHeight="24dp"
+        app:layout_goneMarginStart="24dp"
         android:textColor="@color/text_secondary"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgHint"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtCurrentStep"
-        tools:text="Произносите цифры четко без пауз" />
+        tools:text="Слишком много постороннего шума. Попробуйте сменить помещение"
+        tools:targetApi="p" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/numbersList"
@@ -78,7 +94,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/retry"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:elevation="0dp"/>
 
     <Button
         android:id="@+id/retry"
@@ -95,7 +112,8 @@
         app:layout_constraintBottom_toTopOf="@id/circleDisable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:elevation="0dp"/>
 
     <Button
         android:id="@+id/captureVoice"
@@ -111,7 +129,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/circleDisable"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:elevation="0dp"/>
 
     <Space
         android:id="@+id/center_vertical"

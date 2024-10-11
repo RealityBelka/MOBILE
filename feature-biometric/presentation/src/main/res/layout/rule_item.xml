@@ -28,17 +28,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
 
+    <Space
+        android:id="@+id/center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <ImageView
         android:id="@+id/imageCorrect"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:background="@drawable/img_corners"
         android:clipToOutline="true"
+        android:layout_marginEnd="4dp"
         android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:layout_constraintEnd_toStartOf="@id/center_horizontal"
         app:srcCompat="@drawable/closed_face" />
+
 
     <ImageView
         android:id="@+id/imageIncorrect"
@@ -46,9 +55,9 @@
         android:layout_height="160dp"
         android:background="@drawable/img_corners"
         android:clipToOutline="true"
+        android:layout_marginStart="4dp"
         android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/center_horizontal"
         app:layout_constraintTop_toBottomOf="@+id/desc"
         app:srcCompat="@drawable/view_front" />
 

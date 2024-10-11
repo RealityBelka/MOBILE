@@ -1,20 +1,19 @@
-package ru.gozerov.presentation.adapters
+package ru.gozerov.presentation.screens.face_rules_list
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.gozerov.domain.models.ListRuleItem
 import ru.gozerov.presentation.databinding.RuleItemBinding
 
-class FaceRulesAdapter() :
+class FaceRulesAdapter :
     RecyclerView.Adapter<FaceRulesAdapter.ViewHolder>() {
 
-    private var items: List<ListRuleItem> = listOf()
-    fun setItems(items: List<ListRuleItem>) {
-        this.items = items
-        notifyDataSetChanged()
-    }
+    var items: List<ListRuleItem> = listOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = RuleItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -33,4 +32,5 @@ class FaceRulesAdapter() :
 
         }
     }
+
 }

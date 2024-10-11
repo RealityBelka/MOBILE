@@ -31,7 +31,8 @@ class FaceRulesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.rulesStart.setOnClickListener {
-            findNavController().launch(screen = Screen.VoiceRecord, 3, null)
+           // findNavController().launch(screen = Screen.VoiceRecord, 3, null)
+            findNavController().launch(screen = Screen.RecordingList)
         }
 //        binding.rulesStart.setOnClickListener {
 //            findNavController().launch(screen = Screen.VoiceStart)
