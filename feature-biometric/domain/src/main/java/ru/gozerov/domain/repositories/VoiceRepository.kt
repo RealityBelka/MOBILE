@@ -5,7 +5,7 @@ import ru.gozerov.domain.models.VoiceRecording
 
 interface VoiceRepository {
 
-    suspend fun uploadVoice(step: Int)
+    suspend fun uploadVoice(step: Int, numbers: List<Int>)
 
     suspend fun getNewVoiceFlow(): SharedFlow<VoiceRecording>
 

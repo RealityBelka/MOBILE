@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/exitButton"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
         android:id="@+id/finalPageTitle"
@@ -52,10 +52,11 @@
         android:text="@string/voices_rules"
         android:textColor="@color/text_secondary"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/voiceStartRecord"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/finalPageTitle" />
-
+        app:layout_constraintTop_toBottomOf="@+id/finalPageTitle"
+        app:layout_constraintVertical_bias="0.1" />
 
     <Button
         android:id="@+id/voiceStartRecord"
@@ -90,7 +91,6 @@
         app:layout_constraintBottom_toTopOf="@+id/dotStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
     <View
         android:id="@+id/dotStart"

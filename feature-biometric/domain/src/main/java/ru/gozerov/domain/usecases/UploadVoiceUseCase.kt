@@ -9,8 +9,8 @@ class UploadVoiceUseCase @Inject constructor(
     private val voiceRepository: VoiceRepository
 ) {
 
-    suspend operator fun invoke(step: Int): Unit = withContext(Dispatchers.IO) {
-        return@withContext voiceRepository.uploadVoice(step)
+    suspend operator fun invoke(step: Int, numbers: List<Int>): Unit = withContext(Dispatchers.IO) {
+        return@withContext voiceRepository.uploadVoice(step, numbers)
     }
 
 }

@@ -286,7 +286,7 @@ class FaceCapturingFragment : Fragment() {
             val matrix = Matrix().apply {
                 preScale(-1f, 1f)
             }
-            bitmap = Bitmap.createBitmap(bitmap, 0, 0, 1000, bitmap.height, matrix, false)
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, false)
         }
 
         val cacheDir = requireActivity().externalCacheDir

@@ -19,7 +19,7 @@ class VoiceRepositoryImpl @Inject constructor() : VoiceRepository {
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    override suspend fun uploadVoice(step: Int) {
+    override suspend fun uploadVoice(step: Int, numbers: List<Int>) {
         val isSuccess = true
         val voice = VoiceRecording(
             step = step,
