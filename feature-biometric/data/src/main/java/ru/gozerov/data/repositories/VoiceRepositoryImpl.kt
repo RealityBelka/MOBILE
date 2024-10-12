@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import ru.gozerov.data.api.VoiceApi
@@ -14,7 +13,6 @@ import ru.gozerov.domain.models.VoiceRecording
 import ru.gozerov.domain.repositories.VoiceRepository
 import java.io.File
 import javax.inject.Inject
-import kotlin.random.Random
 
 class VoiceRepositoryImpl @Inject constructor(
     private val context: Context,
@@ -30,12 +28,8 @@ class VoiceRepositoryImpl @Inject constructor(
     )
 
     override suspend fun uploadVoice(step: Int, numbers: List<Int>) {
-        val isSuccess = true
-        val voice = VoiceRecording(
-            step = step,
-            isSuccess = isSuccess,
-            fail = if (!isSuccess) "Произошла ошибка" else null
-        )
+        val response = voiceApi.checkVoice(getVoiceBody(step))
+        val voice = VoiceRecording(step, response.ok, response.message)
         voices[step] = voice
         _newVoice.emit(voice)
     }
@@ -44,19 +38,11 @@ class VoiceRepositoryImpl @Inject constructor(
 
     override suspend fun getVoices(): List<VoiceRecording> = voices.values.toList()
 
-    private fun getVoicePart(step: Int): MultipartBody.Part? {
-        val cacheDir = context.externalCacheDir ?: return null
+    private fun getVoiceBody(step: Int): RequestBody {
+        val cacheDir = context.externalCacheDir
         val file = File(cacheDir, "record_$step.aac")
 
-        if (!file.exists()) {
-            return null
-        }
-        val mimeType = "audio/*"
-
-        val requestBody: RequestBody = file.asRequestBody(mimeType.toMediaTypeOrNull())
-        val part: MultipartBody.Part = MultipartBody.Part.createFormData("audio", file.name, requestBody)
-
-        return part
+        return file.asRequestBody("audio/aac".toMediaTypeOrNull())
     }
 
 }

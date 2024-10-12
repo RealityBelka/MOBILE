@@ -1,10 +1,17 @@
 package ru.gozerov.data.api
 
-import retrofit2.http.GET
+import okhttp3.RequestBody
+import retrofit2.http.Body
+import retrofit2.http.Header
+import retrofit2.http.POST
+import ru.gozerov.data.models.HintResponse
 
 interface VoiceApi {
 
-    @GET("voices")
-    suspend fun getVoices(): List<String>
+    @POST("voice")
+    suspend fun checkVoice(
+        @Body voice: RequestBody,
+        @Header("Content-Type") type: String = "audio/aac"
+    ): HintResponse
 
 }

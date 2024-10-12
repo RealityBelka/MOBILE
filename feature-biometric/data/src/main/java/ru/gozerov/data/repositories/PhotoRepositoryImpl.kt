@@ -22,22 +22,15 @@ class PhotoRepositoryImpl @Inject constructor(
 ) : PhotoRepository {
 
     override suspend fun checkPhoto(bitmap: Bitmap, rectF: RectF): CheckPhotoResult {
-        return CheckPhotoResult(true)
+        val response = photoApi.checkPhoto(getImagePart())
+        return CheckPhotoResult(response.ok, response.message)
     }
 
-    private fun getImagePart(): MultipartBody.Part? {
-        val cacheDir = context.externalCacheDir ?: return null
+    private fun getImagePart(): RequestBody {
+        val cacheDir = context.externalCacheDir
         val file = File(cacheDir, "face.jpeg")
 
-        if (!file.exists()) {
-            return null
-        }
-        val mimeType = "image/jpeg"
-
-        val requestBody: RequestBody = file.asRequestBody(mimeType.toMediaTypeOrNull())
-        val part: MultipartBody.Part = MultipartBody.Part.createFormData("image", file.name, requestBody)
-
-        return part
+        return file.asRequestBody("image/jpeg".toMediaTypeOrNull())
     }
 
 }
