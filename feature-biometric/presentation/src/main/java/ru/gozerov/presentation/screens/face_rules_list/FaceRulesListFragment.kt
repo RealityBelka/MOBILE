@@ -56,6 +56,8 @@ class FaceRulesListFragment : Fragment() {
         binding.faceRulesReturn.setOnClickListener {
             findNavController().popBackStack()
         }
+
+
     }
 
 }
