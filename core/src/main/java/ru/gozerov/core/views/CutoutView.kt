@@ -61,4 +61,6 @@ class CutoutView @JvmOverloads constructor(
         invalidate()
     }
 
+    fun getOvalRect(): RectF = ovalRect
+
 }

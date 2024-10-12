@@ -247,8 +247,21 @@ class FaceCapturingFragment : Fragment() {
                     else if (faces.size > 1)
                         viewModel.obtainEvent(FaceCapturingEvent.ShowFailureHint(getString(R.string.more_that_one_face)))
                     else {
-                        image.bitmapInternal?.let { bitmap: Bitmap ->
-                            viewModel.obtainEvent(FaceCapturingEvent.CheckPhoto(bitmap))
+                        val face = faces.first()
+                        if (face.leftEyeOpenProbability == null || face.rightEyeOpenProbability == null ||
+                            (face.leftEyeOpenProbability != null && face.leftEyeOpenProbability!! < 0.5f) ||
+                            (face.rightEyeOpenProbability != null && face.rightEyeOpenProbability!! < 0.5f)
+                        ) {
+                            viewModel.obtainEvent(FaceCapturingEvent.ShowFailureHint(getString(R.string.your_eyes_are_closed)))
+                        } else {
+                            image.bitmapInternal?.let { bitmap: Bitmap ->
+                                viewModel.obtainEvent(
+                                    FaceCapturingEvent.CheckPhoto(
+                                        bitmap,
+                                        binding.faceOval.getOvalRect()
+                                    )
+                                )
+                            }
                         }
                     }
 
@@ -273,7 +286,7 @@ class FaceCapturingFragment : Fragment() {
             val matrix = Matrix().apply {
                 preScale(-1f, 1f)
             }
-            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, false)
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0, 1000, bitmap.height, matrix, false)
         }
 
         val cacheDir = requireActivity().externalCacheDir
@@ -282,7 +295,7 @@ class FaceCapturingFragment : Fragment() {
             var fos: FileOutputStream? = null
             try {
                 fos = FileOutputStream(file)
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 70, fos)
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 60, fos)
                 fos.flush()
             } catch (e: IOException) {
                 e.printStackTrace()

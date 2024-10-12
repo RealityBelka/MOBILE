@@ -32,7 +32,7 @@ class FaceCapturingViewModel @Inject constructor(
 
                 is FaceCapturingEvent.CheckPhoto -> {
                     runCatchingNonCancellation {
-                        checkPhotoUseCase.invoke(viewEvent.imageBitmap)
+                        checkPhotoUseCase.invoke(viewEvent.imageBitmap, viewEvent.rectF)
                     }
                         .onSuccess { result ->
                             viewState = viewState.copy(

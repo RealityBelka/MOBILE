@@ -136,7 +136,6 @@ class VoiceFragment : Fragment() {
         snapHelper.attachToRecyclerView(binding.numbersList)
 
         binding.exitButton.setOnClickListener {
-            stopRecording()
             val navOptions = NavOptions.Builder()
                 .setPopUpTo(R.id.startPageFragment, true)
                 .setLaunchSingleTop(true).build()
@@ -164,10 +163,7 @@ class VoiceFragment : Fragment() {
                                 }
                             }
                         }
-                        if (pos < data.size - 1)
-                            delay(1200)
-                        else
-                            delay(2000)
+                        delay(1200)
                     }
                 }
                 finishRecording()

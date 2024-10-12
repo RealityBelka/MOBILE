@@ -37,6 +37,8 @@ class RecordingListAdapter(
 
         private val backAmplitudes = mutableListOf<Float>()
         private val frontAmplitudes = mutableListOf<Float>()
+        private val maxSpikesInWidth =
+            (binding.root.resources.displayMetrics.widthPixels / 14).toFloat()
         private var isPlaying: Boolean = false
         private var mediaPlayer: MediaPlayer? = null
         private var playingJob: Job? = null
@@ -107,7 +109,7 @@ class RecordingListAdapter(
                     var isEOS = false
 
                     while (!isEOS) {
-                        val inputIndex = codec.dequeueInputBuffer(10000)
+                        val inputIndex = codec.dequeueInputBuffer(12000)
                         if (inputIndex >= 0) {
                             val inputBuffer = codec.getInputBuffer(inputIndex)
                             val sampleSize = extractor.readSampleData(inputBuffer!!, 0)
@@ -136,7 +138,7 @@ class RecordingListAdapter(
                             }
                         }
 
-                        val outputIndex = codec.dequeueOutputBuffer(outputBufferInfo, 10000)
+                        val outputIndex = codec.dequeueOutputBuffer(outputBufferInfo, 12000)
                         if (outputIndex >= 0) {
                             val outputBuffer = codec.getOutputBuffer(outputIndex)
 
@@ -159,18 +161,17 @@ class RecordingListAdapter(
         }
 
         private fun compactAndProcessBuffer(buffer: ByteBuffer, binding: ItemRecordingBinding) {
-            val amplitudes = mutableListOf<Float>()
-            var maxAmplitude = buffer.short.toFloat().absoluteValue
+            var maxAmplitude = 0f
             while (buffer.hasRemaining()) {
                 val newValue = buffer.short.toFloat().absoluteValue
                 maxAmplitude = max(maxAmplitude, newValue)
             }
 
-            amplitudes.add(maxAmplitude)
-            backAmplitudes.add(maxAmplitude)
-
-            binding.root.post {
-                binding.backRecording.addAmplitude(maxAmplitude)
+            if (backAmplitudes.size < maxSpikesInWidth) {
+                backAmplitudes.add(maxAmplitude)
+                binding.root.post {
+                    binding.backRecording.addAmplitude(maxAmplitude)
+                }
             }
 
         }
@@ -195,7 +196,7 @@ class RecordingListAdapter(
                         start()
                     }
 
-                    this@ViewHolder.duration = mediaPlayer?.duration ?: 10
+                    this@ViewHolder.duration = mediaPlayer?.duration ?: 12000
 
                     playingJob = coroutineScope.launch {
                         backAmplitudes.forEach { amplitude ->

@@ -35,4 +35,5 @@
     <string name="exit">Выйти</string>
     <string name="success_reg">Вы успешно зарегистрировали\nупрощённую биометрию</string>
     <string name="congrats">Поздравляем!</string>
+    <string name="your_eyes_are_closed">Откройте глаза</string>
 </resources>

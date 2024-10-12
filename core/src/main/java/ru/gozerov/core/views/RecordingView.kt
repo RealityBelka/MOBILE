@@ -28,7 +28,7 @@ class RecordingView(context: Context, attrs: AttributeSet?) : View(context, attr
 
     init {
 
-        sw = resources.displayMetrics.widthPixels.toFloat()
+        sw = (resources.displayMetrics.widthPixels).toFloat()
 
         maxSpikes = (sw / (w + d)).toInt()
 
