@@ -32,4 +32,7 @@
     <string name="no_person">Лицо плохо видно</string>
     <string name="continue_recording">Продолжить запись</string>
     <string name="finish">Завершить</string>
+    <string name="exit">Выйти</string>
+    <string name="success_reg">Вы успешно зарегистрировали\nупрощённую биометрию</string>
+    <string name="congrats">Поздравляем!</string>
 </resources>
