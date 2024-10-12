@@ -23,7 +23,8 @@ class BiometricApplication : Application(), BiometricComponentHolder {
 
     override fun inject(fragment: Fragment) {
         if (biometricComponent == null)
-            biometricComponent = DaggerBiometricComponent.create()
+            biometricComponent =
+                DaggerBiometricComponent.factory().create(applicationContext, applicationComponent)
 
         when (fragment) {
             is FaceCapturingFragment -> biometricComponent?.inject(fragment)
