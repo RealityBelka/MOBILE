@@ -10,10 +10,10 @@
         android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Лицо смотрит в камеру"
+        tools:text="Лицо смотрит в камеру"
         android:textColor="@color/text"
         android:layout_marginHorizontal="16dp"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +25,7 @@
         android:layout_marginTop="12dp"
         android:letterSpacing="0.03125"
         android:layout_marginHorizontal="16dp"
-        android:text="Фото соответствует возрасту. Лицо открыто,\nвзгляд направлен в объектив камеры.\nВыражение - нейтральное"
+        tools:text="Фото соответствует возрасту. Лицо открыто,\nвзгляд направлен в объектив камеры.\nВыражение - нейтральное"
         android:textColor="@color/text_secondary"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/desc"
         app:layout_constraintEnd_toStartOf="@id/center_horizontal"
-        app:srcCompat="@drawable/view_front" />
+        tools:srcCompat="@drawable/view_front" />
 
 
     <ImageView
@@ -68,15 +68,15 @@
         app:layout_constraintStart_toEndOf="@id/center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/desc"
-        app:srcCompat="@drawable/closed_face" />
+        tools:srcCompat="@drawable/closed_face" />
 
     <TextView
         android:id="@+id/descCorrect"
         android:layout_width="176dp"
         android:layout_height="wrap_content"
-        android:text="взгляд прямо"
+        tools:text="взгляд прямо"
         android:textColor="@color/text"
-        android:textSize="16sp"
+        android:textSize="12sp"
         android:textStyle="normal"
         android:drawablePadding="4dp"
         android:layout_marginTop="8dp"
@@ -89,9 +89,9 @@
         android:id="@+id/descIncorrect"
         android:layout_width="176dp"
         android:layout_height="wrap_content"
-        android:text="часть лица закрыта"
+        tools:text="часть лица закрыта"
         android:textColor="@color/text"
-        android:textSize="16sp"
+        android:textSize="12sp"
         android:textStyle="normal"
         android:drawablePadding="4dp"
         android:layout_marginTop="8dp"
