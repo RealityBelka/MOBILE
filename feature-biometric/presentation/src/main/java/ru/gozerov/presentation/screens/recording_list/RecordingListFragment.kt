@@ -2,25 +2,25 @@ package ru.gozerov.presentation.screens.recording_list
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
 import ru.gozerov.core.di.biometricComponentHolder
-import ru.gozerov.core.navigation.Screen
-import ru.gozerov.core.navigation.launch
 import ru.gozerov.domain.models.VoiceRecording
 import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.FragmentRecordingListBinding
 import ru.gozerov.presentation.screens.recording_list.models.RecordingListAction
 import ru.gozerov.presentation.screens.recording_list.models.RecordingListEvent
+import ru.gozerov.presentation.screens.voice.VoiceFragment
 import javax.inject.Inject
 
 class RecordingListFragment : Fragment() {
@@ -33,7 +33,14 @@ class RecordingListFragment : Fragment() {
     private val viewModel: RecordingListViewModel by viewModels { factory }
 
     private val adapter = RecordingListAdapter { step, fail ->
-        findNavController().launch(screen = Screen.VoiceRecord, step, fail)
+        val args = bundleOf(VoiceFragment.ARG_STEP to step, VoiceFragment.ARG_FAIL to fail)
+        val navOptions = NavOptions.Builder().setLaunchSingleTop(true).build()
+        findNavController()
+            .navigate(
+                resId = R.id.action_recordingListFragment_to_voiceFragment,
+                args = args,
+                navOptions = navOptions
+            )
     }
 
     override fun onAttach(context: Context) {
@@ -58,6 +65,15 @@ class RecordingListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.recordingList.adapter = adapter
 
+        binding.exitButton.setOnClickListener {
+            val navOptions = NavOptions.Builder().setPopUpTo(R.id.startPageFragment, true).build()
+            findNavController().navigate(
+                resId = R.id.action_recordingListFragment_to_startPageFragment,
+                args = null,
+                navOptions = navOptions
+            )
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 launch {
@@ -81,14 +97,23 @@ class RecordingListFragment : Fragment() {
 
         binding.actionButton.setOnClickListener {
             if (viewModel.viewStates().value.areAllSuccess) {
-                Log.e("AAAA", "All are success")
+                findNavController().navigate(R.id.action_recordingListFragment_to_finalPageFragment)
             } else {
                 val voices = viewModel.viewStates().value.voices
                 val firstVoice = voices.firstOrNull { v -> !v.isSuccess } ?: VoiceRecording(
                     voices.size + 1,
                     false
                 )
-                findNavController().launch(Screen.VoiceRecord, firstVoice.step, firstVoice.fail)
+                val args = bundleOf(
+                    VoiceFragment.ARG_STEP to firstVoice.step,
+                    VoiceFragment.ARG_FAIL to firstVoice.fail
+                )
+                val navOptions = NavOptions.Builder().setLaunchSingleTop(true).build()
+                findNavController().navigate(
+                    resId = R.id.action_recordingListFragment_to_voiceFragment,
+                    args = args,
+                    navOptions = navOptions
+                )
             }
         }
     }

@@ -41,15 +41,12 @@ android {
 
 dependencies {
     implementation(project(":core"))
-    implementation(project(":common"))
     implementation(project(":feature-biometric:api"))
     implementation(project(":feature-biometric:presentation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)

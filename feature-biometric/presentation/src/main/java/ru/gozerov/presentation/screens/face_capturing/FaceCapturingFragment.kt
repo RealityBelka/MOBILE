@@ -24,14 +24,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import kotlinx.coroutines.launch
 import ru.gozerov.core.di.biometricComponentHolder
-import ru.gozerov.core.navigation.Screen
-import ru.gozerov.core.navigation.launch
 import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.FragmentFaceCapturingBinding
 import ru.gozerov.presentation.screens.face_capturing.models.FaceCapturingAction
@@ -118,7 +117,7 @@ class FaceCapturingFragment : Fragment() {
                                 image?.let { capturedImage ->
                                     saveInputImageToCache(capturedImage)
                                     viewModel.clearAction()
-                                    findNavController().launch(Screen.PhotoCheck)
+                                    findNavController().navigate(R.id.action_face_capturing_to_photoCheckFragment)
                                 }
                             }
 
@@ -139,6 +138,15 @@ class FaceCapturingFragment : Fragment() {
             if (viewModel.viewStates().value.isCapturingAllowed) {
                 viewModel.obtainEvent(FaceCapturingEvent.CaptureFace)
             }
+        }
+
+        binding.exitButton.setOnClickListener {
+            val navOptions = NavOptions.Builder().setPopUpTo(R.id.startPageFragment, true).build()
+            findNavController().navigate(
+                resId = R.id.action_face_capturing_to_startPageFragment,
+                args = null,
+                navOptions = navOptions
+            )
         }
 
     }
@@ -232,9 +240,6 @@ class FaceCapturingFragment : Fragment() {
 
         detector.process(image)
             .addOnSuccessListener { faces ->
-                /*  val bounds = face.boundingBox
-                    val rotY = face.headEulerAngleY
-                    val rotZ = face.headEulerAngleZ */
                 _binding?.let {
 
                     if (faces.isEmpty())
@@ -247,7 +252,7 @@ class FaceCapturingFragment : Fragment() {
                         }
                     }
 
-                    binding.root.postDelayed( { if (_binding != null) captureImage() }, 200L)
+                    binding.root.postDelayed({ if (_binding != null) captureImage() }, 200L)
                 }
 
             }
@@ -283,14 +288,6 @@ class FaceCapturingFragment : Fragment() {
                 e.printStackTrace()
             } finally {
                 fos?.close()
-
-                if (file.exists()) {
-                    val fileSizeInBytes = file.length()
-                    val fileSizeInKB = fileSizeInBytes / 1024
-                    val fileSizeInMB = fileSizeInKB / 1024
-                    Log.e("AAAA", fileSizeInKB.toString())
-                    Log.e("AAAA", fileSizeInMB.toString())
-                }
             }
         }
     }

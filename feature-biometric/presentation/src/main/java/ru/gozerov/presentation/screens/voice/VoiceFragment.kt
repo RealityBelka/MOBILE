@@ -15,13 +15,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearSnapHelper
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.gozerov.core.di.biometricComponentHolder
-import ru.gozerov.core.navigation.Screen
-import ru.gozerov.core.navigation.launch
 import ru.gozerov.core.recycler.smoothScrollToPositionWithCustomSpeed
 import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.FragmentVoiceBinding
@@ -62,8 +62,7 @@ class VoiceFragment : Fragment() {
         _binding = FragmentVoiceBinding.inflate(inflater, container, false)
 
         val step = arguments?.getInt(ARG_STEP) ?: throw IllegalStateException("No args provided")
-        val fail = arguments?.getString(ARG_FAIL) ?: getString(R.string.default_voice_hint)
-        viewModel.obtainEvent(VoiceEvent.Initialize(step, fail))
+        viewModel.obtainEvent(VoiceEvent.Initialize(step, arguments?.getString(ARG_FAIL)))
 
         return binding.root
     }
@@ -75,9 +74,13 @@ class VoiceFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 launch {
                     viewModel.viewStates().collect { viewState ->
-                        binding.txtCurrentStep.text = getString(R.string.recording_is, viewState.step)
-                        binding.txtHint.text = viewState.fail ?: getString(R.string.default_voice_hint)
-                        binding.imgHint.visibility = if (viewState.fail != null) View.VISIBLE else View.GONE
+                        binding.txtCurrentStep.text =
+                            getString(R.string.recording_is, viewState.step)
+                        binding.txtHint.text =
+                            viewState.fail ?: getString(R.string.default_voice_hint)
+
+                        binding.imgHint.visibility =
+                            if (viewState.fail != null) View.VISIBLE else View.GONE
                         numberAdapter.data = viewState.numbers
 
                         binding.captureVoice.setOnClickListener {
@@ -103,24 +106,25 @@ class VoiceFragment : Fragment() {
                         }
 
                         binding.sendRecording.setOnClickListener {
-                            findNavController().launch(Screen.RecordingList)
+                            findNavController().navigate(R.id.action_voiceFragment_to_recordingListFragment)
                         }
                     }
                 }
 
                 launch {
                     viewModel.viewActions().collect { viewAction ->
-                        when(viewAction) {
+                        when (viewAction) {
                             is VoiceAction.OnStartRecording -> {
                                 binding.waveformView.clear()
                                 startRecording(viewAction.step)
                                 startNumbers(viewAction.numbers)
                             }
+
                             is VoiceAction.OnStopRecording -> {
 
                             }
 
-                            null -> { }
+                            null -> {}
                         }
                     }
                 }
@@ -128,6 +132,20 @@ class VoiceFragment : Fragment() {
         }
 
         binding.numbersList.adapter = numberAdapter
+        val snapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(binding.numbersList)
+
+        binding.exitButton.setOnClickListener {
+            stopRecording()
+            val navOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.startPageFragment, true)
+                .setLaunchSingleTop(true).build()
+            findNavController().navigate(
+                resId = R.id.action_voiceFragment_to_startPageFragment,
+                args = null,
+                navOptions = navOptions
+            )
+        }
 
     }
 
@@ -146,7 +164,10 @@ class VoiceFragment : Fragment() {
                                 }
                             }
                         }
-                        delay(1000)
+                        if (pos < data.size - 1)
+                            delay(1200)
+                        else
+                            delay(2000)
                     }
                 }
                 finishRecording()
@@ -231,7 +252,7 @@ class VoiceFragment : Fragment() {
         viewModel.obtainEvent(VoiceEvent.StopRecording)
 
         binding.waveformView.clear()
-        binding.numbersList.smoothScrollToPositionWithCustomSpeed(0)
+        binding.numbersList.smoothScrollToPosition(0)
         numberAdapter.data =
             numberAdapter.data.mapIndexed { ind, n -> SelectableNumber(n.number, ind == 0) }
     }
@@ -259,8 +280,8 @@ class VoiceFragment : Fragment() {
 
     companion object {
 
-        private const val ARG_STEP = "step"
-        private const val ARG_FAIL = "fail"
+        const val ARG_STEP = "step"
+        const val ARG_FAIL = "fail"
 
     }
 

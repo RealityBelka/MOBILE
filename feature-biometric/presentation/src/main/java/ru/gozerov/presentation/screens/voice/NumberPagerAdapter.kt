@@ -13,7 +13,6 @@ class NumberPagerAdapter : RecyclerView.Adapter<NumberPagerAdapter.NumberViewHol
             notifyDataSetChanged()
         }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NumberViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return NumberViewHolder(ItemNumberBinding.inflate(inflater, parent, false))
@@ -30,7 +29,7 @@ class NumberPagerAdapter : RecyclerView.Adapter<NumberPagerAdapter.NumberViewHol
 
         fun bind(number: SelectableNumber) {
             binding.root.text = number.number.toString()
-            binding.root.textSize =  if (number.isSelected) 160f else 112f
+            binding.root.textSize = if (number.isSelected) 160f else 112f
         }
 
     }

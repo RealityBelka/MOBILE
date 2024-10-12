@@ -1,4 +1,4 @@
-package ru.gozerov.core.navigation
+package ru.gozerov.core.di
 
 /**
  *
@@ -14,5 +14,6 @@ enum class Screen(val route: String) {
     FaceRulesPage("biometricHack://face_rules"),
     FaceRulesList("biometricHack://face_rules_list"),
     VoiceStart("biometricHack://take_voice_start"),
-    RecordingList("biometricHack://recording_list")
+    RecordingList("biometricHack://recording_list"),
+    FinalPage("biometricHack://final_page")
 }

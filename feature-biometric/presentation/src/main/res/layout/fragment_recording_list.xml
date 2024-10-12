@@ -10,7 +10,7 @@
         android:id="@+id/exitButton"
         android:layout_width="@dimen/_40dp"
         android:layout_height="@dimen/_40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="12dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/close"
@@ -46,7 +46,8 @@
         app:layout_constraintBottom_toTopOf="@id/circleDisable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:elevation="0dp"/>
+        android:elevation="0dp"
+        android:stateListAnimator="@null"/>
 
     <Space
         android:id="@+id/center_vertical"

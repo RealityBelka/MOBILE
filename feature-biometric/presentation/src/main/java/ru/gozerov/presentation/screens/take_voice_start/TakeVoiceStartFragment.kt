@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import ru.gozerov.core.navigation.Screen
-import ru.gozerov.core.navigation.launch
+import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.FragmentTakeVoiceStartBinding
+import ru.gozerov.presentation.screens.voice.VoiceFragment
 
 class TakeVoiceStartFragment : Fragment() {
 
@@ -27,11 +29,27 @@ class TakeVoiceStartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding.voiceStartRecord.setOnClickListener {
-            findNavController().launch(Screen.VoiceRecord, 1, null)
+            val args = bundleOf(VoiceFragment.ARG_STEP to 1, VoiceFragment.ARG_FAIL to null)
+            val navOptions = NavOptions.Builder().setLaunchSingleTop(true).build()
+            findNavController()
+                .navigate(
+                    resId = R.id.action_takeVoiceStartFragment_to_voiceFragment,
+                    args = args,
+                    navOptions = navOptions
+                )
         }
 
         binding.voiceSkipRecord.setOnClickListener {
+            findNavController().navigate(R.id.action_takeVoiceStartFragment_to_finalPageFragment)
+        }
 
+        binding.exitButton.setOnClickListener {
+            val navOptions = NavOptions.Builder().setPopUpTo(R.id.startPageFragment, true).build()
+            findNavController().navigate(
+                resId = R.id.action_takeVoiceStartFragment_to_startPageFragment,
+                args = null,
+                navOptions = navOptions
+            )
         }
 
     }

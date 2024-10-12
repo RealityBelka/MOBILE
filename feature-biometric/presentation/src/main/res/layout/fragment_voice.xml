@@ -10,7 +10,7 @@
         android:id="@+id/exitButton"
         android:layout_width="@dimen/_40dp"
         android:layout_height="@dimen/_40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="12dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/close"
@@ -35,14 +35,14 @@
         android:id="@+id/imgHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_alert"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
         android:contentDescription="@string/default_voice_hint"
-        app:layout_constraintTop_toTopOf="@id/txtHint"
+        android:src="@drawable/ic_alert"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/txtHint"
-        android:visibility="gone" />
-    
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtHint" />
+
     <TextView
         android:id="@+id/txtHint"
         android:layout_width="0dp"
@@ -51,20 +51,23 @@
         android:layout_marginTop="8dp"
         android:letterSpacing="0.03125"
         android:lineHeight="24dp"
-        app:layout_goneMarginStart="24dp"
         android:textColor="@color/text_secondary"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/imgHint"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgHint"
         app:layout_constraintTop_toBottomOf="@id/txtCurrentStep"
-        tools:text="Слишком много постороннего шума. Попробуйте сменить помещение"
-        tools:targetApi="p" />
+        app:layout_goneMarginStart="24dp"
+        tools:targetApi="p"
+        tools:text="Слишком много постороннего шума. Попробуйте сменить помещение" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/numbersList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipToPadding="false"
         android:orientation="horizontal"
+        android:paddingStart="140dp"
+        android:paddingEnd="140dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/txtHint"
         tools:listitem="@layout/item_number" />
@@ -86,16 +89,17 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/custom_button_blue"
+        android:elevation="0dp"
         android:letterSpacing="0.0125"
+        android:stateListAnimator="@null"
         android:text="@string/_continue"
         android:textAllCaps="false"
         android:textColor="@color/background"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/retry"
         android:visibility="gone"
-        android:elevation="0dp"/>
+        app:layout_constraintBottom_toTopOf="@id/retry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/retry"
@@ -104,16 +108,17 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/custom_button_white"
+        android:elevation="0dp"
         android:letterSpacing="0.0125"
+        android:stateListAnimator="@null"
         android:text="@string/retry"
         android:textAllCaps="false"
         android:textColor="@color/primary"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/circleDisable"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"
-        android:elevation="0dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/captureVoice"
@@ -122,6 +127,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/custom_button_blue"
+        android:elevation="0dp"
         android:letterSpacing="0.0125"
         android:text="@string/start_recording"
         android:textAllCaps="false"
@@ -129,8 +135,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/circleDisable"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:elevation="0dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Space
         android:id="@+id/center_vertical"

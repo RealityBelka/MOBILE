@@ -6,11 +6,11 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import ru.gozerov.common.R.id.nav_host_fragment
-import ru.gozerov.common.databinding.ActivityMainBinding
-import ru.gozerov.core.R
+import ru.gozerov.biometrichack.R
+import ru.gozerov.biometrichack.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity()/*, Navigator*/ {
+
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -18,15 +18,15 @@ class MainActivity : AppCompatActivity()/*, Navigator*/ {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.light(
-                getColor(R.color.transparent),
-                getColor(R.color.white)
+                getColor(ru.gozerov.core.R.color.transparent),
+                getColor(ru.gozerov.core.R.color.white)
             )
         )
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val navHostFragment = supportFragmentManager
-            .findFragmentById(nav_host_fragment) as NavHostFragment
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
         intent?.let {
@@ -36,14 +36,5 @@ class MainActivity : AppCompatActivity()/*, Navigator*/ {
         }
     }
 
-    /* override fun launch(screen: Screen) {
-         val navController = findNavController(R.id.nav_host_fragment)
-         when (screen) {
-             Screen.VoiceRecord -> {
-                 navController.navigate(R.id.action_biometricFragment_to_voiceFragment)
-             }
-         }
-
-     }*/
 
 }

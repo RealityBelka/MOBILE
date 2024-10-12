@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import ru.gozerov.core.navigation.Screen
-import ru.gozerov.core.navigation.launch
+import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.FragmentStartPageBinding
 
 class StartPageFragment : Fragment() {
@@ -31,7 +30,7 @@ class StartPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding.buttonLaunch.setOnClickListener {
-            findNavController().launch(screen = Screen.FaceRulesPage)
+            findNavController().navigate(R.id.action_startPageFragment_to_faceRulesFragment)
         }
 
 

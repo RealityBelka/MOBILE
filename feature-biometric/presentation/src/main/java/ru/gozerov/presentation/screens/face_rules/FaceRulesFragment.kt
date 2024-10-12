@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import ru.gozerov.core.navigation.Screen
-import ru.gozerov.core.navigation.launch
+import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.FragmentFaceRulesBinding
 
 class FaceRulesFragment : Fragment() {
@@ -31,11 +31,20 @@ class FaceRulesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.rulesStart.setOnClickListener {
-            findNavController().launch(Screen.FaceCapturing)
+            findNavController().navigate(R.id.action_faceRulesFragment_to_face_capturing)
         }
 
         binding.rulesDesc.setOnClickListener {
-            findNavController().launch(screen = Screen.FaceRulesList)
+            findNavController().navigate(R.id.action_faceRulesFragment_to_faceRulesListFragment)
+        }
+
+        binding.exitButton.setOnClickListener {
+            val navOptions = NavOptions.Builder().setPopUpTo(R.id.startPageFragment, true).build()
+            findNavController().navigate(
+                resId = R.id.action_faceRulesFragment_to_startPageFragment,
+                args = null,
+                navOptions = navOptions
+            )
         }
 
     }

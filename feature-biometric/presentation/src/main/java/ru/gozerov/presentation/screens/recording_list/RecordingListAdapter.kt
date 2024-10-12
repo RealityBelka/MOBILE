@@ -20,6 +20,7 @@ import ru.gozerov.presentation.databinding.ItemRecordingBinding
 import java.io.IOException
 import java.nio.ByteBuffer
 import kotlin.math.absoluteValue
+import kotlin.math.max
 
 class RecordingListAdapter(
     private val onTryClick: (step: Int, fail: String?) -> Unit
@@ -159,13 +160,17 @@ class RecordingListAdapter(
 
         private fun compactAndProcessBuffer(buffer: ByteBuffer, binding: ItemRecordingBinding) {
             val amplitudes = mutableListOf<Float>()
+            var maxAmplitude = buffer.short.toFloat().absoluteValue
+            while (buffer.hasRemaining()) {
+                val newValue = buffer.short.toFloat().absoluteValue
+                maxAmplitude = max(maxAmplitude, newValue)
+            }
 
-            val amplitude = buffer.short.toFloat().absoluteValue
-            amplitudes.add(amplitude)
-            backAmplitudes.add(amplitude)
+            amplitudes.add(maxAmplitude)
+            backAmplitudes.add(maxAmplitude)
 
             binding.root.post {
-                binding.backRecording.addAmplitude(amplitude)
+                binding.backRecording.addAmplitude(maxAmplitude)
             }
 
         }

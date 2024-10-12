@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import ru.gozerov.core.navigation.Screen
-import ru.gozerov.core.navigation.launch
+import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.FragmentCheckPhotoBinding
 import java.io.File
 
@@ -36,7 +36,16 @@ class CheckPhotoFragment : Fragment() {
         }
 
         binding.sendButton.setOnClickListener {
-            findNavController().launch(Screen.VoiceStart)
+            findNavController().navigate(R.id.action_photoCheckFragment_to_takeVoiceStartFragment)
+        }
+
+        binding.exitButton.setOnClickListener {
+            val navOptions = NavOptions.Builder().setPopUpTo(R.id.startPageFragment, true).build()
+            findNavController().navigate(
+                resId = R.id.action_photoCheckFragment_to_startPageFragment,
+                args = null,
+                navOptions = navOptions
+            )
         }
 
     }
