@@ -61,6 +61,7 @@
     <Button
         android:id="@+id/voiceStartRecord"
         android:layout_width="match_parent"
+        android:elevation="0dp"
         android:layout_height="60dp"
         android:layout_marginHorizontal="16dp"
         android:background="@drawable/custom_button_blue"
@@ -75,6 +76,7 @@
 
     <Button
         android:id="@+id/voiceSkipRecord"
+        android:elevation="0dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="16dp"

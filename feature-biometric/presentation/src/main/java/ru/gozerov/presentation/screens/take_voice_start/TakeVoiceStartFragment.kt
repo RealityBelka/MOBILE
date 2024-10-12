@@ -24,12 +24,21 @@ class TakeVoiceStartFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        binding.voiceStartRecord.setOnClickListener {
+            findNavController().launch(Screen.VoiceRecord, 1, null)
+        }
+
+        binding.voiceSkipRecord.setOnClickListener {
+
+        }
+
+    }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-    }
 }

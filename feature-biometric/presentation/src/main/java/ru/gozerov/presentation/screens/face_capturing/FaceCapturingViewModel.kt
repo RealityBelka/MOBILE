@@ -32,7 +32,7 @@ class FaceCapturingViewModel @Inject constructor(
 
                 is FaceCapturingEvent.CheckPhoto -> {
                     runCatchingNonCancellation {
-                        checkPhotoUseCase.invoke()
+                        checkPhotoUseCase.invoke(viewEvent.imageBitmap)
                     }
                         .onSuccess { result ->
                             viewState = viewState.copy(
@@ -45,13 +45,17 @@ class FaceCapturingViewModel @Inject constructor(
                             viewAction = FaceCapturingAction.ShowError(e.message.toString())
                         }
                 }
+
+                is FaceCapturingEvent.ShowFailureHint -> {
+                    viewState = viewState.copy(fail = viewEvent.message, isCapturingAllowed = false)
+                }
             }
         }
     }
 
     class Factory @Inject constructor(
         private val checkPhotoUseCase: CheckPhotoUseCase
-    ): ViewModelProvider.Factory {
+    ) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

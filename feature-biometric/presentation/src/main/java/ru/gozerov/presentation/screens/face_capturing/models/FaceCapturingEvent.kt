@@ -1,11 +1,19 @@
 package ru.gozerov.presentation.screens.face_capturing.models
 
+import android.graphics.Bitmap
+
 sealed interface FaceCapturingEvent {
 
-    data object SwitchCamera: FaceCapturingEvent
+    data object SwitchCamera : FaceCapturingEvent
 
-    data object CheckPhoto: FaceCapturingEvent
+    class CheckPhoto(
+        val imageBitmap: Bitmap
+    ) : FaceCapturingEvent
 
-    data object CaptureFace: FaceCapturingEvent
+    class ShowFailureHint(
+        val message: String
+    ) : FaceCapturingEvent
+
+    data object CaptureFace : FaceCapturingEvent
 
 }

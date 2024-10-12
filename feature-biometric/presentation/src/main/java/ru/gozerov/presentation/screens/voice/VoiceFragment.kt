@@ -37,7 +37,6 @@ class VoiceFragment : Fragment() {
 
     @Inject
     lateinit var factory: VoiceViewModel.Factory
-
     private val viewModel: VoiceViewModel by viewModels { factory }
 
     private val numberAdapter = NumberPagerAdapter()

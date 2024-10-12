@@ -26,7 +26,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.face.Face
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import kotlinx.coroutines.launch
@@ -75,7 +74,6 @@ class FaceCapturingFragment : Fragment() {
         cameraPermissionRequest.launch(Manifest.permission.CAMERA)
 
         var isFrontCamera = viewModel.viewStates().value.isFrontCamera
-        Log.e("AAA", isFrontCamera.toString())
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
@@ -145,26 +143,11 @@ class FaceCapturingFragment : Fragment() {
 
     }
 
-    private fun changeCamera(isFrontCamera: Boolean) {
-        val cameraSelector = if (isFrontCamera) {
-            CameraSelector.DEFAULT_FRONT_CAMERA
-        } else {
-            CameraSelector.DEFAULT_BACK_CAMERA
-        }
-
-        startCamera(cameraSelector)
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
-    }
-
-
     private val cameraPermissionRequest =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (granted) {
-                val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+                val cameraSelector =
+                    if (viewModel.viewStates().value.isFrontCamera) CameraSelector.DEFAULT_FRONT_CAMERA else CameraSelector.DEFAULT_BACK_CAMERA
                 startCamera(cameraSelector)
             } else {
                 // Handle permission denial
@@ -176,6 +159,17 @@ class FaceCapturingFragment : Fragment() {
         .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
         .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL) // Enables smile and eye open probabilities
         .build()
+
+    private fun changeCamera(isFrontCamera: Boolean) {
+        val cameraSelector = if (isFrontCamera) {
+            CameraSelector.DEFAULT_FRONT_CAMERA
+        } else {
+            CameraSelector.DEFAULT_BACK_CAMERA
+        }
+
+        startCamera(cameraSelector)
+    }
+
 
     private fun startCamera(cameraSelector: CameraSelector) {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
@@ -201,36 +195,6 @@ class FaceCapturingFragment : Fragment() {
             }
 
         }, ContextCompat.getMainExecutor(requireContext()))
-    }
-
-    private fun detectFaces(image: InputImage) {
-        val detector = FaceDetection.getClient(highAccuracyOpts)
-        detector.process(image)
-
-        detector.process(image)
-            .addOnSuccessListener { faces ->
-                /*  val bounds = face.boundingBox
-                    val rotY = face.headEulerAngleY
-                    val rotZ = face.headEulerAngleZ */
-
-                viewModel.obtainEvent(FaceCapturingEvent.CheckPhoto)
-                showAdvice(faces)
-            }
-            .addOnFailureListener { e ->
-                Log.e("FaceDetection", "Face detection failed", e)
-                return@addOnFailureListener
-            }
-    }
-
-    private fun showAdvice(faces: List<Face>) {
-        if (_binding != null) {
-            binding.root.postDelayed({
-                if (_binding != null) {
-
-                    captureImage()
-                }
-            }, 200L)
-        }
     }
 
     private fun captureImage() {
@@ -262,6 +226,42 @@ class FaceCapturingFragment : Fragment() {
         }
     }
 
+    private fun detectFaces(image: InputImage) {
+        val detector = FaceDetection.getClient(highAccuracyOpts)
+        detector.process(image)
+
+        detector.process(image)
+            .addOnSuccessListener { faces ->
+                /*  val bounds = face.boundingBox
+                    val rotY = face.headEulerAngleY
+                    val rotZ = face.headEulerAngleZ */
+                _binding?.let {
+
+                    if (faces.isEmpty())
+                        viewModel.obtainEvent(FaceCapturingEvent.ShowFailureHint(getString(R.string.no_person)))
+                    else if (faces.size > 1)
+                        viewModel.obtainEvent(FaceCapturingEvent.ShowFailureHint(getString(R.string.more_that_one_face)))
+                    else {
+                        image.bitmapInternal?.let { bitmap: Bitmap ->
+                            viewModel.obtainEvent(FaceCapturingEvent.CheckPhoto(bitmap))
+                        }
+                    }
+
+                    binding.root.postDelayed( { if (_binding != null) captureImage() }, 200L)
+                }
+
+            }
+            .addOnFailureListener { e ->
+                Log.e("FaceDetection", "Face detection failed", e)
+                return@addOnFailureListener
+            }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
     private fun saveInputImageToCache(inputImage: InputImage) {
         var bitmap: Bitmap = inputImage.bitmapInternal ?: return
         if (viewModel.viewStates().value.isFrontCamera) {
@@ -286,8 +286,8 @@ class FaceCapturingFragment : Fragment() {
 
                 if (file.exists()) {
                     val fileSizeInBytes = file.length()
-                    val fileSizeInKB = fileSizeInBytes / 1024 // Преобразование в КБ
-                    val fileSizeInMB = fileSizeInKB / 1024 // Преобразование в МБ
+                    val fileSizeInKB = fileSizeInBytes / 1024
+                    val fileSizeInMB = fileSizeInKB / 1024
                     Log.e("AAAA", fileSizeInKB.toString())
                     Log.e("AAAA", fileSizeInMB.toString())
                 }

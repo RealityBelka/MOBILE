@@ -2,8 +2,10 @@ package ru.gozerov.data.repositories
 
 import ru.gozerov.domain.models.ListRuleItem
 import ru.gozerov.domain.repositories.RuleRepository
+import javax.inject.Inject
 
-class RuleRepositoryImpl : RuleRepository {
+class RuleRepositoryImpl @Inject constructor(): RuleRepository {
+
     override fun getList() : List<ListRuleItem> {
         val list = mutableListOf<ListRuleItem>()
         list.add(ListRuleItem("Лицо смотрит в камеру", "Фото соответствует возрасту. Лицо открыто,\nвзгляд направлен в объектив камеры.\nВыражение - нейтральное", "взгляд прямо", "часть лица закрыта", "view_front", "closed_face"))
@@ -11,6 +13,7 @@ class RuleRepositoryImpl : RuleRepository {
         list.add(ListRuleItem("Светлый фон и дневной свет", "Фон однотонный, без посторонних предметов\nи теней. Хорошее освещение: лучше сделать фото при дневном свете ", "светлый фон", "пестрый фон", "light", "nonlight"))
         list.add(ListRuleItem("Без головных уборов и\nслужебной формы", "Если ваша религия обязывает покрывать\nголову, проследите, чтобы овал лица был чётко\nвиден", "религиозная\nодежда", "головной убор", "muslim", "hat"))
 
-        return list;
+        return list
     }
+
 }

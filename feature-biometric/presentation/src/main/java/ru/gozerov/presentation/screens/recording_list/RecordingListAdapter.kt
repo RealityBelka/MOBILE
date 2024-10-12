@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.gozerov.domain.models.VoiceRecording
 import ru.gozerov.presentation.R
 import ru.gozerov.presentation.databinding.ItemRecordingBinding
 import java.io.IOException
@@ -24,7 +25,7 @@ class RecordingListAdapter(
     private val onTryClick: (step: Int, fail: String?) -> Unit
 ) : RecyclerView.Adapter<RecordingListAdapter.ViewHolder>() {
 
-    var data: List<Recording> = emptyList()
+    var data: List<VoiceRecording> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -43,7 +44,7 @@ class RecordingListAdapter(
         private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
 
-        fun bind(data: Recording, onTryClick: (step: Int, fail: String?) -> Unit) {
+        fun bind(data: VoiceRecording, onTryClick: (step: Int, fail: String?) -> Unit) {
             with(binding) {
                 val context = root.context
 

@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/photoCheckFragment"
-        android:name="ru.gozerov.presentation.screens.photo_check.PhotoCheckFragment"
+        android:name="ru.gozerov.presentation.screens.photo_check.CheckPhotoFragment"
         android:label="PhotoCheckFragment">
         <deepLink app:uri="biometricHack://photo_check" />
     </fragment>

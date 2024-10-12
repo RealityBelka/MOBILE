@@ -4,13 +4,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.gozerov.core.coroutines.runCatchingNonCancellation
 import ru.gozerov.core.viewmodel.BaseViewModel
+import ru.gozerov.domain.usecases.GetNewVoiceUseCase
+import ru.gozerov.domain.usecases.UploadVoiceUseCase
 import ru.gozerov.presentation.screens.voice.models.VoiceAction
 import ru.gozerov.presentation.screens.voice.models.VoiceEvent
 import ru.gozerov.presentation.screens.voice.models.VoiceViewState
 import javax.inject.Inject
 
-class VoiceViewModel : BaseViewModel<VoiceViewState, VoiceAction, VoiceEvent>(VoiceViewState()) {
+class VoiceViewModel(
+    private val uploadVoiceUseCase: UploadVoiceUseCase
+): BaseViewModel<VoiceViewState, VoiceAction, VoiceEvent>(VoiceViewState()) {
 
     override fun obtainEvent(viewEvent: VoiceEvent) {
         viewModelScope.launch {
@@ -35,6 +40,9 @@ class VoiceViewModel : BaseViewModel<VoiceViewState, VoiceAction, VoiceEvent>(Vo
 
                 is VoiceEvent.FinishRecording -> {
                     viewState = viewState.copy(isCapturing = false, isFinish = true)
+                    runCatchingNonCancellation {
+                        uploadVoiceUseCase.invoke(viewState.step)
+                    }
                 }
             }
         }
@@ -55,11 +63,13 @@ class VoiceViewModel : BaseViewModel<VoiceViewState, VoiceAction, VoiceEvent>(Vo
 
     }
 
-    class Factory @Inject constructor(): ViewModelProvider.Factory {
+    class Factory @Inject constructor(
+        private val uploadVoiceUseCase: UploadVoiceUseCase
+    ): ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return VoiceViewModel() as T
+            return VoiceViewModel(uploadVoiceUseCase) as T
         }
 
     }

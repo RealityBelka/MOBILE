@@ -41,7 +41,6 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":feature-biometric:domain"))
-    implementation(project(":feature-biometric:data"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

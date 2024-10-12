@@ -28,4 +28,8 @@
     <string name="send">Отправить</string>
     <string name="you_could_take_photo">Можете смело делать фото</string>
     <string name="check_photo_quality">Проверьте качество фото</string>
+    <string name="more_that_one_face">Больше одного лица на изображении</string>
+    <string name="no_person">Лицо плохо видно</string>
+    <string name="continue_recording">Продолжить запись</string>
+    <string name="finish">Завершить</string>
 </resources>
