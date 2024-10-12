@@ -3,6 +3,7 @@ package ru.gozerov.presentation.screens.face_rules_list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.gozerov.domain.models.ListRuleItem
 import ru.gozerov.presentation.databinding.ItemRuleBinding
 
@@ -35,21 +36,28 @@ class FaceRulesAdapter :
             binding.descCorrect.text = item.descCorrect
             binding.descIncorrect.text = item.descIncorrect
 
-            val imageCorrect = context.resources.getIdentifier(
-                item.imageCorrect,
-                "drawable",
-                context.packageName
-            )
+//            val imageCorrect = context.resources.getIdentifier(
+//                item.imageCorrect,
+//                "drawable",
+//                context.packageName
+//            )
+//
+//            binding.imageCorrect.setImageResource(imageCorrect)
+//
+//            val imageIncorrect = context.resources.getIdentifier(
+//                item.imageIncorrect,
+//                "drawable",
+//                context.packageName
+//            )
+//
+//            binding.imageIncorrect.setImageResource(imageIncorrect)
+            Glide.with(context)
+                .load(item.imageCorrect)
+                .into(binding.imageCorrect)
 
-            binding.imageCorrect.setImageResource(imageCorrect)
-
-            val imageIncorrect = context.resources.getIdentifier(
-                item.imageIncorrect,
-                "drawable",
-                context.packageName
-            )
-
-            binding.imageIncorrect.setImageResource(imageIncorrect)
+            Glide.with(context)
+                .load(item.imageIncorrect)
+                .into(binding.imageIncorrect)
         }
     }
 

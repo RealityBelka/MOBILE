@@ -28,4 +28,7 @@
     <string name="send">Отправить</string>
     <string name="you_could_take_photo">Можете смело делать фото</string>
     <string name="check_photo_quality">Проверьте качество фото</string>
+    <string name="exit">Выйти</string>
+    <string name="success_reg">Вы успешно зарегистрировали\nупрощённую биометрию</string>
+    <string name="congrats">Поздравляем!</string>
 </resources>

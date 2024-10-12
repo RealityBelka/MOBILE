@@ -1,58 +1,60 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <TextView
-        android:id="@+id/startPageTitle"
+        android:id="@+id/finalPageTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="72dp"
-        android:layout_marginTop="176dp"
         android:gravity="center"
-        android:text="@string/register_easy_biometry"
+        android:text="@string/congrats"
         android:textColor="@color/text"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:layout_marginTop="176dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/startPageDesc"
+        android:id="@+id/finalPageDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="48dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:letterSpacing="0.015"
-        android:text="@string/follow_instructions"
+        android:textSize="14dp"
+        android:text="@string/success_reg"
         android:textColor="@color/text_secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startPageTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/finalPageTitle" />
 
     <ImageView
-        android:id="@+id/startPageImg"
+        android:id="@+id/finalPageImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:contentDescription="@string/man"
-        android:src="@drawable/humanstart"
+        android:src="@drawable/human_final"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startPageDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/finalPageDesc" />
 
     <Button
-        android:id="@+id/buttonLaunch"
+        android:id="@+id/finalPageExit"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/custom_button_blue"
-        android:text="@string/register"
+        android:text="@string/exit"
         android:textAllCaps="false"
         android:textColor="@color/background"
         android:textSize="20sp"
@@ -60,5 +62,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.873"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/party" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
