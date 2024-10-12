@@ -48,4 +48,11 @@ dependencies {
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
 
+    //Retrofit2 & OkHttp3
+    implementation(libs.retrofit2)
+    implementation(libs.moshi.converter)
+    implementation(platform(libs.okhttp3.bom))
+    implementation(libs.okhttp3)
+    implementation(libs.okhttp3.logging.interceptor)
+
 }
