@@ -32,7 +32,7 @@ class RecordingListViewModel(
                         }
                             .onSuccess { voices ->
                                 val areAllSuccess =
-                                    voices.size == 3 && voices.all { v -> v.isSuccess }
+                                    voices.size == 3 && voices.all { v -> v.isSuccess == true }
                                 viewState =
                                     viewState.copy(voices = voices, areAllSuccess = areAllSuccess)
                             }
@@ -53,7 +53,7 @@ class RecordingListViewModel(
                                     else voices[voice.step - 1] = voice
 
                                     val areAllSuccess =
-                                        voices.size == 3 && voices.all { v -> v.isSuccess }
+                                        voices.size == 3 && voices.all { v -> v.isSuccess == true }
                                     viewState =
                                         viewState.copy(
                                             voices = voices,

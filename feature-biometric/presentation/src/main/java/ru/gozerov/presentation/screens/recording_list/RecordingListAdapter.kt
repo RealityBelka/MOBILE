@@ -50,21 +50,24 @@ class RecordingListAdapter(
         fun bind(data: VoiceRecording, onTryClick: (step: Int, fail: String?) -> Unit) {
             with(binding) {
                 val context = root.context
-
-                imgHint.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        context,
-                        if (data.isSuccess) R.drawable.ic_check else R.drawable.ic_alert
-                    )
-                )
-
-                txtTryOneMoreTime.setOnClickListener { onTryClick(data.step, data.fail) }
+                val isSuccess = data.isSuccess
 
                 txtCurrentRecording.text = context.getString(R.string.recording_is, data.step)
+                txtTryOneMoreTime.setOnClickListener { onTryClick(data.step, data.fail) }
 
-                txtHint.text =
-                    if (data.isSuccess) root.context.getString(R.string.done)
-                    else data.fail ?: context.getString(R.string.default_voice_hint)
+                if (isSuccess != null) {
+
+                    imgHint.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            if (isSuccess) R.drawable.ic_check else R.drawable.ic_alert
+                        )
+                    )
+
+                    txtHint.text =
+                        if (isSuccess) root.context.getString(R.string.done)
+                        else data.fail ?: context.getString(R.string.default_voice_hint)
+                }
 
                 imgPlay.setImageDrawable(
                     ContextCompat.getDrawable(

@@ -22,6 +22,8 @@ interface RetrofitModule {
                 .addInterceptor(
                     HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
                 )
+                .readTimeout(20000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                .writeTimeout(20000L, java.util.concurrent.TimeUnit.MILLISECONDS)
                 .build()
 
             return Retrofit

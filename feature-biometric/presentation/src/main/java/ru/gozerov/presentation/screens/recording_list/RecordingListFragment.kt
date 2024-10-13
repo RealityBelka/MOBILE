@@ -100,7 +100,7 @@ class RecordingListFragment : Fragment() {
                 findNavController().navigate(R.id.action_recordingListFragment_to_finalPageFragment)
             } else {
                 val voices = viewModel.viewStates().value.voices
-                val firstVoice = voices.firstOrNull { v -> !v.isSuccess } ?: VoiceRecording(
+                val firstVoice = voices.firstOrNull { v -> v.isSuccess == false } ?: VoiceRecording(
                     voices.size + 1,
                     false
                 )

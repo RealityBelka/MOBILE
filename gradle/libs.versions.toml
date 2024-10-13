@@ -64,7 +64,6 @@ mlkit = { group = "com.google.mlkit", name = "face-detection", version.ref = "ml
 mlkit-vision = { group = "com.google.mlkit", name = "vision-common", version.ref = "mlkit" }
 play-services-mlkit-face-detection = { group = "com.google.android.gms", name = "play-services-mlkit-face-detection", version.ref = "playServicesMlkitFaceDetection" }
 
-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
